@@ -1132,12 +1132,266 @@ button {
 }
 
 /* =============================================
+   創業メンバーセクション
+   ============================================= */
+.members {
+  background: var(--color-white);
+}
+
+/* 4カラムグリッド（タブレットで2列、スマホで1列） */
+.members__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.member-card {
+  padding: 36px 24px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  text-align: center;
+  transition: all var(--transition);
+}
+
+.member-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 32px rgba(91, 110, 245, 0.1);
+  transform: translateY(-4px);
+}
+
+/* アバター（写真が入るまでのプレースホルダー） */
+.member-card__avatar {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 20px;
+}
+
+.member-card__avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-en);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-white);
+  letter-spacing: 0.05em;
+}
+
+/* 写真がある場合はこのクラスを使う */
+.member-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.member-card__name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.member-card__role {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+.member-card__bio {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  line-height: 1.75;
+}
+
+/* =============================================
+   SNSリンク（フッター内）
+   ============================================= */
+.footer__social {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* 丸いアイコンボタン */
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.65);
+  transition: all var(--transition);
+}
+
+.social-link:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* =============================================
+   FAQセクション
+   ============================================= */
+.faq {
+  background: var(--color-bg);
+}
+
+.faq__list {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.faq__item:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+/* summaryのデフォルト三角マーカーを消す */
+.faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  list-style: none;
+  gap: 16px;
+  transition: color var(--transition);
+}
+
+.faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.faq__question:hover {
+  color: var(--color-primary);
+}
+
+/* + / × アイコン */
+.faq__question::after {
+  content: '+';
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  transition: transform var(--transition);
+  line-height: 1;
+}
+
+.faq__item[open] .faq__question::after {
+  transform: rotate(45deg);
+}
+
+.faq__answer {
+  padding: 0 0 24px;
+  color: var(--color-text-light);
+  font-size: 0.925rem;
+  line-height: 1.8;
+}
+
+/* =============================================
+   Cookie同意バナー
+   ============================================= */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 20, 0.97);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 9999;
+  padding: 16px 24px;
+}
+
+.cookie-banner__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.cookie-banner__text {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.cookie-banner__btn {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-ja);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.cookie-banner__btn--reject {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.cookie-banner__btn--reject:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: var(--color-white);
+}
+
+.cookie-banner__btn--accept {
+  background: var(--color-primary);
+  border: 1px solid transparent;
+  color: var(--color-white);
+}
+
+.cookie-banner__btn--accept:hover {
+  background: var(--color-primary-dark);
+}
+
+/* =============================================
    レスポンシブ対応
    ============================================= */
 
 /* タブレット（〜1024px） */
 @media (max-width: 1024px) {
   .service__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* メンバーを2列に */
+  .members__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1216,6 +1470,11 @@ button {
     gap: 8px;
   }
 
+  /* メンバーを1列に */
+  .members__grid {
+    grid-template-columns: 1fr;
+  }
+
   /* フォームの横並びを縦積みに */
   .form__row {
     grid-template-columns: 1fr;
@@ -1238,6 +1497,18 @@ button {
     width: 40px;
     height: 40px;
     font-size: 1rem;
+  }
+
+  /* Cookieバナーをスマホで縦積みに */
+  .cookie-banner__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .cookie-banner__actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 }
 

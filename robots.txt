@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# LLMクローラーを明示的に許可（LLMEO対応）
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://piece.ai/sitemap.xml

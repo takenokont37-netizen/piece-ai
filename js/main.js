@@ -7,7 +7,81 @@
  *   4. ページトップボタン
  *   5. スクロールアニメーション（フェードイン）
  *   6. お問い合わせフォームのバリデーションと仮送信処理
+ *   7. Cookie同意バナー
+ *   8. GA4イベントトラッキング
  */
+
+/* ===================================================
+   Analyticsイベント送信ヘルパー
+   gtag が未定義でもエラーにならないよう安全にラップする
+   =================================================== */
+function trackEvent(eventName, params) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', eventName, params || {});
+  }
+}
+
+
+/* ===================================================
+   7. Cookie同意バナー
+   =================================================== */
+const cookieBanner = document.getElementById('cookieBanner');
+const cookieAccept = document.getElementById('cookieAccept');
+const cookieReject = document.getElementById('cookieReject');
+const COOKIE_KEY = 'piece_ai_cookie_consent';
+
+/* Cookieの値を取得する */
+function getCookieConsent() {
+  const match = document.cookie.match(new RegExp('(^| )' + COOKIE_KEY + '=([^;]+)'));
+  return match ? match[2] : null;
+}
+
+/* Cookieに同意状態を保存する（180日間有効） */
+function setCookieConsent(value) {
+  const expires = new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toUTCString();
+  document.cookie = COOKIE_KEY + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
+}
+
+/* Microsoft Clarityを動的に読み込む */
+function loadClarity(projectId) {
+  /* TODO: projectId を実際のMicrosoft ClarityのプロジェクトIDに変更すること */
+  (function(c, l, a, r, i, t, y) {
+    c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments); };
+    t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+    y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+  })(window, document, 'clarity', 'script', projectId);
+}
+
+/* Analyticsを有効化する（同意時に呼ぶ） */
+function enableAnalytics() {
+  if (typeof gtag !== 'undefined') {
+    gtag('consent', 'update', { 'analytics_storage': 'granted' });
+  }
+  loadClarity('XXXXXXXXXX');
+}
+
+/* バナーの初期化：Cookieの状態に応じて表示/非表示を切り替える */
+function initCookieBanner() {
+  const consent = getCookieConsent();
+  if (consent === 'accepted') {
+    enableAnalytics();
+  } else if (consent !== 'rejected') {
+    cookieBanner.hidden = false;
+  }
+}
+
+cookieAccept.addEventListener('click', () => {
+  setCookieConsent('accepted');
+  enableAnalytics();
+  cookieBanner.hidden = true;
+});
+
+cookieReject.addEventListener('click', () => {
+  setCookieConsent('rejected');
+  cookieBanner.hidden = true;
+});
+
+initCookieBanner();
 
 /* ===================================================
    1. ヘッダー：スクロールで背景を切り替える
@@ -90,7 +164,7 @@ backToTop.addEventListener('click', () => {
    fade-in クラスを持つ要素が画面内に入ったら is-visible を付与
    =================================================== */
 const fadeTargets = document.querySelectorAll(
-  '.service-card, .about__mission, .about__ceo, .about__table-wrap, .news__item, .stats__item, .ai-card'
+  '.service-card, .member-card, .about__mission, .about__ceo, .about__table-wrap, .news__item, .stats__item, .ai-card'
 );
 
 // すべての要素に fade-in クラスを追加
@@ -204,10 +278,15 @@ contactForm.addEventListener('submit', (e) => {
   // 仮の送信処理（本番環境ではAPIエンドポイントへのfetchに置き換える）
   // 例: fetch('/api/contact', { method: 'POST', body: new FormData(contactForm) })
   setTimeout(() => {
+    const contactType = document.getElementById('type').value || 'other';
+
     contactForm.reset();               // フォームをリセット
     formSuccess.hidden = false;        // 完了メッセージを表示
     submitBtn.disabled = false;
     submitBtn.textContent = '送信する';
+
+    // コンバージョンイベントを送信（typeパラメータ付き）
+    trackEvent('form_submit_success', { type: contactType });
 
     // 5秒後に完了メッセージを非表示
     setTimeout(() => {
@@ -215,3 +294,49 @@ contactForm.addEventListener('submit', (e) => {
     }, 5000);
   }, 1000);  // 1秒後に完了（APIに合わせて変更する）
 });
+
+
+/* ===================================================
+   8. GA4イベントトラッキング
+   =================================================== */
+
+/* ヒーロー「無料でお問い合わせ」クリック */
+const heroCtaContact = document.querySelector('.hero__actions .btn--primary');
+if (heroCtaContact) {
+  heroCtaContact.addEventListener('click', () => trackEvent('cta_hero_click'));
+}
+
+/* ヒーロー「サービスを見る」クリック */
+const heroCtaService = document.querySelector('.hero__actions .btn--outline');
+if (heroCtaService) {
+  heroCtaService.addEventListener('click', () => trackEvent('cta_service_click'));
+}
+
+/* ヘッダー「お問い合わせ」クリック */
+const navContactLink = document.querySelector('.nav__link--cta');
+if (navContactLink) {
+  navContactLink.addEventListener('click', () => trackEvent('nav_contact_click'));
+}
+
+/* ニュース記事クリック（何番目の記事かもパラメータに含める） */
+document.querySelectorAll('.news__link').forEach((item, index) => {
+  item.addEventListener('click', () => {
+    trackEvent('news_item_click', { news_index: index + 1 });
+  });
+});
+
+/* フォーム送信開始（バリデーション通過前に発火） */
+contactForm.addEventListener('submit', () => {
+  trackEvent('form_submit_start');
+}, { capture: true });
+
+/* ページ75%スクロール到達（一度だけ発火） */
+let scroll75Fired = false;
+window.addEventListener('scroll', () => {
+  if (scroll75Fired) return;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  if (docHeight > 0 && window.scrollY / docHeight >= 0.75) {
+    scroll75Fired = true;
+    trackEvent('scroll_75');
+  }
+}, { passive: true });
