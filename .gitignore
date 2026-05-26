@@ -1,1 +1,16 @@
 CLAUDE.md
+
+# Next.js
+.next/
+out/
+
+# 依存パッケージ（npm install で再生成できるので不要）
+node_modules/
+
+# 環境変数（絶対にコミットしないこと）
+.env
+.env.local
+.env.production
+
+# ビルドキャッシュ
+.turbo/

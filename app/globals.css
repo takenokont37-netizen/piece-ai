@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* =============================================
+   ブランドカラーの定義（ここを変えると全体に反映）
+   ブランドカラーが決まったら --color-primary / secondary を変更してください
+   ============================================= */
+@theme inline {
+  /* 仮のブランドカラー */
+  --color-primary:   #5b6ef5;
+  --color-primary-d: #3a4fd4;
+  --color-secondary: #00c9a7;
+
+  /* ベースカラー */
+  --color-dark:    #0a0a14;
+  --color-dark2:   #12121f;
+  --color-copy:    #1a1a2e;
+  --color-muted:   #6b7280;
+  --color-surface: #f8f9fc;
+  --color-stroke:  #e5e7eb;
+}
+
+/* =============================================
+   グローバルスタイル
+   ============================================= */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  color: #1a1a2e;
+  background: #f8f9fc;
+}
+
+/* =============================================
+   浮遊アニメーション（ヒーローの装飾用）
+   ============================================= */
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.05); }
+}
+
+.animate-float   { animation: float 8s  ease-in-out infinite; }
+.animate-float-2 { animation: float 10s ease-in-out infinite reverse; }
+.animate-float-3 { animation: float 12s ease-in-out infinite; animation-delay: 2s; }
+
+.ai-card-1 { animation: float 6s ease-in-out infinite; animation-delay: 0s; }
+.ai-card-2 { animation: float 6s ease-in-out infinite; animation-delay: 1.5s; }
+.ai-card-3 { animation: float 6s ease-in-out infinite; animation-delay: 3s; }
+.ai-card-4 { animation: float 6s ease-in-out infinite; animation-delay: 4.5s; }
+
+/* =============================================
+   スクロールフェードインアニメーション
+   FadeIn コンポーネントから .is-visible を付与
+   ============================================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
