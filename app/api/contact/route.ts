@@ -32,54 +32,26 @@ function validate(body: Record<string, unknown>): string[] {
   return errors
 }
 
-/** Slackに通知を送る */
+/** Slackに通知を送る（デバッグ情報を返す） */
 async function notifySlack(params: {
   name: string
   company: string
   email: string
   type: string
   message: string
-}) {
+}): Promise<{ status: number; body: string; webhookSet: boolean }> {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL_CONTACT
   if (!webhookUrl) {
-    /* 環境変数が未設定の場合はスキップ（ローカル開発時など） */
     console.warn('[Contact] SLACK_WEBHOOK_URL_CONTACT が未設定のため、Slack通知をスキップします')
-    return
+    return { status: 0, body: 'webhook URL not set', webhookSet: false }
   }
 
   const { name, company, email, type, message } = params
   const label = typeLabel[type] ?? type ?? '（未選択）'
 
+  /* シンプルなテキスト形式（デバッグ用：Block Kitを一時的に無効化） */
   const slackBody = {
-    text: '📩 *新規お問い合わせが届きました*',
-    blocks: [
-      {
-        type: 'header',
-        text: { type: 'plain_text', text: '📩 新規お問い合わせ', emoji: true },
-      },
-      {
-        type: 'section',
-        fields: [
-          { type: 'mrkdwn', text: `*氏名*\n${name}` },
-          { type: 'mrkdwn', text: `*会社名*\n${company || '（未入力）'}` },
-          { type: 'mrkdwn', text: `*メール*\n${email}` },
-          { type: 'mrkdwn', text: `*種別*\n${label}` },
-        ],
-      },
-      {
-        type: 'section',
-        text: { type: 'mrkdwn', text: `*お問い合わせ内容*\n${message}` },
-      },
-      {
-        type: 'context',
-        elements: [
-          {
-            type: 'mrkdwn',
-            text: `受信日時: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`,
-          },
-        ],
-      },
-    ],
+    text: `📩 新規お問い合わせ\n氏名: ${name}\n会社: ${company || '未入力'}\nメール: ${email}\n種別: ${label}\n内容: ${message}`,
   }
 
   const res = await fetch(webhookUrl, {
@@ -88,10 +60,13 @@ async function notifySlack(params: {
     body: JSON.stringify(slackBody),
   })
 
+  const responseBody = await res.text()
   if (!res.ok) {
-    /* Slack通知の失敗はエラーにしない（フォーム送信は成功扱いにする） */
-    console.error('[Contact] Slack通知に失敗しました:', res.status, await res.text())
+    console.error('[Contact] Slack通知に失敗しました:', res.status, responseBody)
+  } else {
+    console.log('[Contact] Slack通知成功:', res.status, responseBody)
   }
+  return { status: res.status, body: responseBody, webhookSet: true }
 }
 
 /* =============================================
@@ -111,19 +86,20 @@ export async function POST(req: NextRequest) {
       name: string; company?: string; email: string; type?: string; message: string
     }
 
-    /* Slack通知（失敗しても送信完了とする） */
-    await notifySlack({ name, company, email, type, message })
+    /* Slack通知（デバッグ情報をレスポンスに含める） */
+    const slackResult = await notifySlack({ name, company, email, type, message })
 
-    /* ログ（Vercel Functions Logs で確認できる） */
     console.log('[Contact] お問い合わせを受け付けました:', {
       name,
-      company: company || '（未入力）',
       email,
-      type: typeLabel[type] ?? type,
+      slackStatus: slackResult.status,
+      slackBody: slackResult.body,
+      webhookSet: slackResult.webhookSet,
       timestamp: new Date().toISOString(),
     })
 
-    return NextResponse.json({ success: true }, { status: 200 })
+    /* デバッグ用：Slackの結果をレスポンスに含める（確認後に削除） */
+    return NextResponse.json({ success: true, _debug: slackResult }, { status: 200 })
 
   } catch (err) {
     console.error('[Contact] Error:', err)
