@@ -23,7 +23,6 @@ function setCookieValue(key: string, value: string) {
 
 /** Microsoft Clarityを動的に読み込む */
 function loadClarity(projectId: string) {
-  // TODO: projectId を実際の Microsoft Clarity プロジェクトIDに変更すること
   type ClarityFunction = ((...args: unknown[]) => void) & { q?: unknown[] }
   const w = window as Window & { clarity?: ClarityFunction }
   w.clarity = w.clarity || function (...args: unknown[]) {
@@ -42,7 +41,7 @@ function enableAnalytics() {
       'consent', 'update', { analytics_storage: 'granted' }
     )
   }
-  loadClarity('XXXXXXXXXX') // TODO: 実際のClarityプロジェクトIDに変更
+  loadClarity('wxje8wmsnh')
 }
 
 export default function CookieBanner() {
