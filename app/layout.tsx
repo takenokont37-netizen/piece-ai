@@ -125,9 +125,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${notoSansJP.className} antialiased`}>
 
         {/* GA4: Consent Mode v2（Cookie同意前はデフォルト拒否） */}
-        {/* TODO: G-XXXXXXXXXX を実際の測定IDに変更すること */}
+        {/* TODO: G-JCD5VZEFCM を実際の測定IDに変更すること */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          src="https://www.googletagmanager.com/gtag/js?id=G-JCD5VZEFCM"
           strategy="afterInteractive"
         />
         <Script id="ga4-init" strategy="afterInteractive">
@@ -136,7 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             function gtag(){ dataLayer.push(arguments); }
             gtag('consent', 'default', { 'analytics_storage': 'denied' });
             gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX');
+            gtag('config', 'G-JCD5VZEFCM');
           `}
         </Script>
 
