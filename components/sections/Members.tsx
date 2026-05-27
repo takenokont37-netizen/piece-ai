@@ -4,31 +4,19 @@
    ============================================= */
 import FadeIn from '@/components/FadeIn'
 
-/* TODO: 実際のメンバー情報に差し替えてください */
+/* TODO: bioを実際の経歴テキスト（150〜200字）に差し替えてください */
 const members = [
   {
-    initials: 'CEO',
-    name: '氏名（TBD）',
+    initials: 'YA',
+    name: 'Yusuke Aoki',
     role: '代表取締役 CEO',
-    bio: '元伊藤忠商事にて最年少で新規事業責任者を務めた後、AI領域で連続起業。Piece.aiを創業。',
+    bio: '（経歴 準備中）',
   },
   {
-    initials: 'Co.',
-    name: '氏名（TBD）',
-    role: '共同創業者（役職TBD）',
-    bio: '経歴・プロフィール準備中。',
-  },
-  {
-    initials: 'Co.',
-    name: '氏名（TBD）',
-    role: '共同創業者（役職TBD）',
-    bio: '経歴・プロフィール準備中。',
-  },
-  {
-    initials: 'Co.',
-    name: '氏名（TBD）',
-    role: '共同創業者（役職TBD）',
-    bio: '経歴・プロフィール準備中。',
+    initials: 'TN',
+    name: 'Takeru Nishida',
+    role: 'Co-Founder / Engineer',
+    bio: '（経歴 準備中）',
   },
 ]
 
@@ -41,11 +29,11 @@ export default function Members() {
         <div className="text-center mb-16">
           <p className="text-xs font-semibold tracking-[0.2em] text-[#5b6ef5] font-[var(--font-en)] mb-3">FOUNDERS</p>
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e] mb-5">創業メンバー</h2>
-          <p className="text-base text-gray-500">Piece.aiを立ち上げた4名のプロフィール。</p>
+          <p className="text-base text-gray-500">Piece.aiを立ち上げたメンバーのプロフィール。</p>
         </div>
 
-        {/* カードグリッド */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* カードグリッド（2名） */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[760px] mx-auto">
           {members.map(({ initials, name, role, bio }, i) => (
             <FadeIn key={i} delay={i * 80}>
               <div className="p-9 bg-gray-50 border border-gray-200 rounded-2xl text-center h-full transition-all hover:border-[#5b6ef5] hover:shadow-[0_8px_32px_rgba(91,110,245,0.1)] hover:-translate-y-1">
