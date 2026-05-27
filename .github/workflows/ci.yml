@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Lint / Type check / Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Node.js のセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 依存パッケージのインストール
+      - name: Install dependencies
+        run: npm ci
+
+      # Next.js ESLint による静的解析
+      - name: Lint
+        run: npm run lint
+
+      # TypeScript の型チェック
+      - name: Type check
+        run: npx tsc --noEmit
+
+      # Next.js のビルド確認
+      - name: Build
+        run: npm run build
+        env:
+          # ビルド時は Slack Webhook が不要なためダミーをセット
+          SLACK_WEBHOOK_URL_CONTACT: https://hooks.slack.com/dummy
