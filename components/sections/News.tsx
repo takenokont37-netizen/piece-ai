@@ -84,10 +84,12 @@ export default async function News() {
           {newsItems.map((item, i) => (
             <FadeIn key={item.id} delay={i * 60}>
               <li className="border-b border-gray-200">
+                {/* リンクあり→<a>、なし→<div>（#なしで誤動作を防ぐ） */}
+                {item.link ? (
                 <a
-                  href={item.link ?? '#'}
-                  target={item.link ? '_blank' : undefined}
-                  rel={item.link ? 'noopener noreferrer' : undefined}
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex flex-wrap items-center gap-5 px-4 py-6 transition-colors hover:bg-gray-50 group"
                 >
                   {/* 日付 */}
@@ -108,6 +110,25 @@ export default async function News() {
                     {item.title}
                   </p>
                 </a>
+                ) : (
+                <div className="flex flex-wrap items-center gap-5 px-4 py-6 group">
+                  {/* 日付 */}
+                  <time
+                    className="font-[var(--font-en)] text-sm text-gray-400 shrink-0 w-20"
+                    dateTime={item.date ?? item.publishedAt}
+                  >
+                    {formatDate(item)}
+                  </time>
+                  {/* バッジ */}
+                  <span className={`shrink-0 px-2.5 py-1 text-xs font-semibold rounded-full ${badgeColor[item.category] ?? 'bg-gray-100 text-gray-500'}`}>
+                    {item.category}
+                  </span>
+                  {/* タイトル */}
+                  <p className="text-sm text-[#1a1a2e] leading-snug">
+                    {item.title}
+                  </p>
+                </div>
+                )}
               </li>
             </FadeIn>
           ))}
