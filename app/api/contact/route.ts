@@ -4,13 +4,21 @@ import { NextRequest, NextResponse } from 'next/server'
    お問い合わせフォーム API Route
    POST /api/contact
 
-   TODO: Slack通知を追加する場合は以下を参考に
-   https://api.slack.com/messaging/webhooks
-   環境変数 SLACK_WEBHOOK_URL_CONTACT を設定して使う
+   必要な環境変数（Vercelのダッシュボードで設定）:
+   - SLACK_WEBHOOK_URL_CONTACT : Slack Incoming Webhook URL
    ============================================= */
 
-/** バリデーション: 必須フィールドの確認 */
-function validate(body: Record<string, unknown>) {
+/** お問い合わせ種別の日本語ラベル */
+const typeLabel: Record<string, string> = {
+  meeting: '面談を希望する',
+  service: 'サービスについて詳しく聞きたい',
+  demo:    'デモを見たい',
+  price:   '料金について',
+  other:   'その他',
+}
+
+/** バリデーション */
+function validate(body: Record<string, unknown>): string[] {
   const errors: string[] = []
   if (!body.name || typeof body.name !== 'string' || !body.name.trim()) {
     errors.push('お名前は必須です')
@@ -24,6 +32,71 @@ function validate(body: Record<string, unknown>) {
   return errors
 }
 
+/** Slackに通知を送る */
+async function notifySlack(params: {
+  name: string
+  company: string
+  email: string
+  type: string
+  message: string
+}) {
+  const webhookUrl = process.env.SLACK_WEBHOOK_URL_CONTACT
+  if (!webhookUrl) {
+    /* 環境変数が未設定の場合はスキップ（ローカル開発時など） */
+    console.warn('[Contact] SLACK_WEBHOOK_URL_CONTACT が未設定のため、Slack通知をスキップします')
+    return
+  }
+
+  const { name, company, email, type, message } = params
+  const label = typeLabel[type] ?? type ?? '（未選択）'
+
+  const slackBody = {
+    text: '📩 *新規お問い合わせが届きました*',
+    blocks: [
+      {
+        type: 'header',
+        text: { type: 'plain_text', text: '📩 新規お問い合わせ', emoji: true },
+      },
+      {
+        type: 'section',
+        fields: [
+          { type: 'mrkdwn', text: `*氏名*\n${name}` },
+          { type: 'mrkdwn', text: `*会社名*\n${company || '（未入力）'}` },
+          { type: 'mrkdwn', text: `*メール*\n${email}` },
+          { type: 'mrkdwn', text: `*種別*\n${label}` },
+        ],
+      },
+      {
+        type: 'section',
+        text: { type: 'mrkdwn', text: `*お問い合わせ内容*\n${message}` },
+      },
+      {
+        type: 'context',
+        elements: [
+          {
+            type: 'mrkdwn',
+            text: `受信日時: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`,
+          },
+        ],
+      },
+    ],
+  }
+
+  const res = await fetch(webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(slackBody),
+  })
+
+  if (!res.ok) {
+    /* Slack通知の失敗はエラーにしない（フォーム送信は成功扱いにする） */
+    console.error('[Contact] Slack通知に失敗しました:', res.status, await res.text())
+  }
+}
+
+/* =============================================
+   POST ハンドラー
+   ============================================= */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -34,48 +107,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: errors.join(', ') }, { status: 400 })
     }
 
-    const { name, company, email, type, message } = body as {
+    const { name, company = '', email, type = '', message } = body as {
       name: string; company?: string; email: string; type?: string; message: string
     }
 
-    /* ── TODO: Slack通知（#7 で実装） ──────────────────
-    const webhookUrl = process.env.SLACK_WEBHOOK_URL_CONTACT
-    if (webhookUrl) {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: [
-            '📩 *新規お問い合わせ*',
-            `会社: ${company || '（未入力）'}`,
-            `氏名: ${name}`,
-            `メール: ${email}`,
-            `種別: ${type || '（未選択）'}`,
-            `内容:\n${message}`,
-          ].join('\n'),
-        }),
-      })
-    }
-    ─────────────────────────────────────────────────── */
+    /* Slack通知（失敗しても送信完了とする） */
+    await notifySlack({ name, company, email, type, message })
 
-    /* ── TODO: メール送信（Resend / SendGrid） ──────────
-    import { Resend } from 'resend'
-    const resend = new Resend(process.env.RESEND_API_KEY)
-    await resend.emails.send({
-      from: 'noreply@piece.ai',
-      to: 'info@piece.ai',
-      subject: `お問い合わせ: ${name}（${company || '個人'}）`,
-      text: `氏名: ${name}\nメール: ${email}\n種別: ${type}\n\n${message}`,
-    })
-    ─────────────────────────────────────────────────── */
-
-    /* 受付完了ログ（本番デプロイ後はVercelのFunction Logsで確認できる） */
-    console.log('[Contact] New inquiry received:', {
+    /* ログ（Vercel Functions Logs で確認できる） */
+    console.log('[Contact] お問い合わせを受け付けました:', {
       name,
       company: company || '（未入力）',
       email,
-      type: type || '（未選択）',
-      messageLength: message.length,
+      type: typeLabel[type] ?? type,
       timestamp: new Date().toISOString(),
     })
 
