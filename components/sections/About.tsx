@@ -1,11 +1,25 @@
 /* =============================================
    会社概要セクション
+   ミッション・ビジョン・バリュー・会社情報
    ============================================= */
 import FadeIn from '@/components/FadeIn'
 
+const values = [
+  'ファーストクラス体験',
+  '自由な発想',
+  '自律的行動',
+  'AIネイティブ思考',
+  'イシュードリブン',
+  'グロースマインドセット',
+  '三方よし',
+  'グローバルマインドセット',
+  'Go Bold',
+  '稼ぐ・削る・防ぐ',
+]
+
 const tableRows = [
   { label: '会社名',   value: 'Piece.ai株式会社' },
-  { label: '事業内容', value: 'AIエージェントサービスの提供（Enterprise AI SaaS）' },
+  { label: '事業内容', value: 'バイブワーキングAIエージェントプラットフォームの提供（Enterprise AI SaaS）' },
   { label: '設立',     value: '2024年（設立準備中）' },
   { label: '従業員数', value: '13名（創業メンバー4名）' },
   { label: '代表',     value: '元伊藤忠商事 最年少新規事業責任者・AI連続起業家' },
@@ -22,23 +36,52 @@ export default function About() {
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e]">Piece.aiについて</h2>
         </div>
 
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-10">
+
+          {/* ミッション */}
+          <FadeIn>
+            <div className="relative overflow-hidden text-center py-16 bg-[#0a0a14] rounded-3xl text-white">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgba(91,110,245,0.3)_0%,transparent_60%)]" />
+              <div className="relative z-10 px-6">
+                <p className="text-xs font-semibold tracking-[0.25em] text-[#00c9a7] mb-5 font-[var(--font-en)]">MISSION</p>
+                <p className="text-3xl md:text-4xl font-bold leading-[1.4] mb-6">
+                  愛のある世界平和の実現
+                </p>
+                <p className="max-w-lg mx-auto text-sm text-white/65 leading-[1.8]">
+                  AIデジタル戦争に終止符を打ち、<br />
+                  争いのない平和な世界を創造する。
+                </p>
+              </div>
+            </div>
+          </FadeIn>
 
           {/* ビジョン */}
           <FadeIn>
-            <div className="relative overflow-hidden text-center py-16 bg-[#0a0a14] rounded-3xl text-white">
-              {/* 背景グラデーション */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgba(91,110,245,0.3)_0%,transparent_60%)]" />
-              <div className="relative z-10">
-                <p className="text-xs font-semibold tracking-[0.25em] text-[#00c9a7] mb-5 font-[var(--font-en)]">OUR VISION</p>
-                <p className="text-3xl md:text-5xl font-bold leading-[1.3] mb-6">
-                  日本発・グローバル時価総額<br />
-                  <strong className="text-[#5b6ef5] text-[1.2em]">10兆円</strong>規模を目指す
-                </p>
-                <p className="max-w-lg mx-auto text-sm text-white/65 leading-[1.8]">
-                  AIエージェントが当たり前の社会インフラとなる未来へ向け、
-                  日本から世界をリードするプロダクトを作り続けます。
-                </p>
+            <div className="text-center py-14 px-6 bg-white border border-gray-200 rounded-3xl">
+              <p className="text-xs font-semibold tracking-[0.25em] text-[#5b6ef5] mb-5 font-[var(--font-en)]">VISION</p>
+              <p className="text-2xl md:text-3xl font-bold text-[#1a1a2e] leading-[1.4] mb-5">
+                全ての人にAIの力を、<br />全人類の幸福を最大化する
+              </p>
+              <p className="max-w-xl mx-auto text-sm text-gray-500 leading-[1.8]">
+                世界一使いやすいプラットフォームで、AI格差を是正し、<br className="hidden md:block" />
+                すべての人がAIの恩恵を受けられる社会を目指します。
+              </p>
+            </div>
+          </FadeIn>
+
+          {/* バリュー */}
+          <FadeIn>
+            <div className="bg-white border border-gray-200 rounded-3xl p-12">
+              <h3 className="text-xs font-semibold tracking-[0.25em] text-[#5b6ef5] text-center mb-8 font-[var(--font-en)]">VALUES</h3>
+              <div className="flex flex-wrap justify-center gap-3">
+                {values.map((v) => (
+                  <span
+                    key={v}
+                    className="px-5 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm font-semibold text-[#1a1a2e] hover:border-[#5b6ef5] hover:text-[#5b6ef5] transition-colors"
+                  >
+                    {v}
+                  </span>
+                ))}
               </div>
             </div>
           </FadeIn>
@@ -46,17 +89,16 @@ export default function About() {
           {/* 代表プロフィール */}
           <FadeIn>
             <div className="flex flex-col md:flex-row items-center md:items-start gap-10 p-12 bg-white border border-gray-200 rounded-3xl">
-              {/* アバター */}
               <div className="shrink-0 w-24 h-24 rounded-full bg-gradient-to-br from-[#5b6ef5] to-[#00c9a7] flex items-center justify-center text-white font-bold text-xl font-[var(--font-en)]">
-                CEO
+                YA
               </div>
-              {/* テキスト */}
               <div className="text-center md:text-left">
-                <p className="text-xs font-semibold tracking-[0.1em] text-[#5b6ef5] mb-2">代表取締役 CEO</p>
+                <p className="text-xs font-semibold tracking-[0.1em] text-[#5b6ef5] mb-1">代表取締役 CEO</p>
+                <p className="text-lg font-bold text-[#1a1a2e] mb-3">Yusuke Aoki</p>
                 <p className="text-sm text-gray-500 leading-[1.8]">
                   元伊藤忠商事にて最年少で新規事業責任者を務めた後、
                   AI領域で連続起業。Piece.aiを創業し、
-                  日本企業のDXを加速させるミッションに取り組む。
+                  全人類の幸福最大化というミッションに取り組む。
                 </p>
               </div>
             </div>

@@ -39,19 +39,19 @@ export default function Hero() {
 
           {/* メインコピー */}
           <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.2] tracking-tight mb-6">
-            AIエージェントで、<br />
+            全ての人に、<br />
             <span className="text-[#5b6ef5] relative">
-              非定型業務
+              AIの力
               <span className="absolute bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-[#5b6ef5] to-[#00c9a7] rounded-full" />
             </span>
-            を変える。
+            を。
           </h1>
 
           {/* サブコピー */}
           <p className="text-base text-white/70 leading-[1.8] mb-10">
-            Piece.aiは、これまで自動化できなかった<br className="hidden md:block" />
-            複雑な業務フローをAIエージェントで解決します。<br />
-            日本発、グローバルへ。
+            3分以内で業務特化型AIエージェントを構築。<br className="hidden md:block" />
+            プロンプト不要で、誰でも使いこなせる<br />
+            バイブワーキングAIエージェントプラットフォーム。
           </p>
 
           {/* CTAボタン */}

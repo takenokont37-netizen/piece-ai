@@ -5,14 +5,14 @@ import FadeIn from '@/components/FadeIn'
 
 const services = [
   {
-    icon: '🧠',
-    title: '非定型業務の自動化',
-    desc: 'ルーティン作業だけでなく、状況判断が必要な複雑な業務フローもAIエージェントが対応。人間にしかできないと思われていた仕事を自動化します。',
+    icon: '⚡',
+    title: '3分で構築できるAIエージェント',
+    desc: 'プロンプト不要。従業員が3分以内で業務特化型AIエージェントを構築でき、誰でも簡単に使いこなせるバイブワーキングプラットフォームを提供します。',
   },
   {
-    icon: '🔧',
-    title: 'ノーコード業務設計',
-    desc: 'キントーンのように、エンジニアがいなくてもAIエージェントの業務フローを直感的に設計・運用できるプラットフォームを提供します。',
+    icon: '🧠',
+    title: '非定型業務の自動化',
+    desc: '状況判断が必要な複雑な業務フローもAIエージェントが対応。これまで属人化・手作業だった非定型業務を自動化・標準化します。',
   },
   {
     icon: '🔗',
@@ -22,7 +22,7 @@ const services = [
   {
     icon: '🛡️',
     title: 'エンタープライズ対応',
-    desc: '大企業が求めるセキュリティ・ガバナンス要件に対応。安心して業務の中枢をPiece.aiに任せることができます。',
+    desc: '超大手企業が求めるセキュリティ・ガバナンス要件に対応。安心して業務の中枢をPiece.aiに任せることができます。',
   },
 ]
 
@@ -36,8 +36,8 @@ export default function Service() {
           <p className="text-xs font-semibold tracking-[0.2em] text-[#5b6ef5] font-[var(--font-en)] mb-3">SERVICE</p>
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e] mb-5">Piece.aiが解決すること</h2>
           <p className="text-base text-gray-500 leading-[1.8]">
-            「AI版キントーン」として、これまで属人化・手作業だった<br className="hidden md:block" />
-            非定型業務をAIエージェントで自動化・標準化します。
+            3分以内で業務特化型AIエージェントを構築。<br className="hidden md:block" />
+            プロンプト不要で、誰でも真のAIトランスフォーメーションを実現します。
           </p>
         </div>
 
