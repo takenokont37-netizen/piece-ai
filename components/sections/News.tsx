@@ -55,8 +55,10 @@ const fallbackNews: NewsItem[] = [
   },
 ]
 
-/** 日付フォーマット（例: 2026.05.20） */
-function formatDate(iso: string): string {
+/** 日付フォーマット（例: 2026.05.20）
+ *  date（手動設定）が入力されていればそちらを優先、なければ publishedAt を使用 */
+function formatDate(item: NewsItem): string {
+  const iso = item.date ?? item.publishedAt
   const d = new Date(iso)
   const y = d.getFullYear()
   const m = String(d.getMonth() + 1).padStart(2, '0')
@@ -91,9 +93,9 @@ export default async function News() {
                   {/* 日付 */}
                   <time
                     className="font-[var(--font-en)] text-sm text-gray-400 shrink-0 w-20"
-                    dateTime={item.publishedAt}
+                    dateTime={item.date ?? item.publishedAt}
                   >
-                    {formatDate(item.publishedAt)}
+                    {formatDate(item)}
                   </time>
 
                   {/* バッジ */}

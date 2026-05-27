@@ -17,5 +17,6 @@ export type NewsItem = {
   title:       string
   category:    string
   link?:       string
+  date?:       string   /* 手動設定の掲載日（未入力の場合は publishedAt を使用） */
   publishedAt: string   /* microCMS が自動付与する公開日時 */
 }
