@@ -185,13 +185,6 @@ export default function Contact() {
           )}
         </form>
 
-        {/* メール直接連絡 */}
-        <p className="text-center mt-8 text-sm text-gray-500">
-          または直接メールでも受け付けています：
-          <a href="mailto:info@piece.ai" className="text-[#5b6ef5] font-semibold underline underline-offset-2 hover:text-[#3a4fd4] ml-1">
-            info@piece.ai
-          </a>
-        </p>
       </div>
     </section>
   )
