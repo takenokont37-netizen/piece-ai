@@ -13,9 +13,9 @@ const members = [
     bio: '（経歴 準備中）',
   },
   {
-    initials: 'TN',
-    name: 'Takeru Nishida',
-    role: 'Co-Founder / Engineer',
+    initials: 'YY',
+    name: 'Yoshida',
+    role: 'Co-Founder',
     bio: '（経歴 準備中）',
   },
 ]
