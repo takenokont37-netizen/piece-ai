@@ -79,7 +79,7 @@ export default function Header() {
 
           {/* ハンバーガーボタン（スマホ用） */}
           <button
-            className="md:hidden flex flex-col justify-between w-7 h-5 p-0"
+            className="md:hidden flex flex-col justify-between w-7 h-5 p-0 overflow-hidden"
             onClick={() => setMenuOpen(v => !v)}
             aria-label={menuOpen ? 'メニューを閉じる' : 'メニューを開く'}
             aria-expanded={menuOpen}
@@ -91,8 +91,10 @@ export default function Header() {
                   scrolled ? 'bg-[#1a1a2e]' : 'bg-white'
                 } ${
                   menuOpen && i === 0 ? 'translate-y-[9px] rotate-45' :
-                  menuOpen && i === 1 ? 'opacity-0' :
                   menuOpen && i === 2 ? '-translate-y-[9px] -rotate-45' : ''
+                } ${
+                  /* 常に opacity-100/opacity-0 を明示してトランジションを有効化 */
+                  i === 1 ? (menuOpen ? 'opacity-0' : 'opacity-100') : ''
                 }`}
               />
             ))}
