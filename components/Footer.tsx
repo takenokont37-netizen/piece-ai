@@ -1,16 +1,29 @@
+'use client'
 /* =============================================
-   フッター（サーバーコンポーネント）
+   フッター
+   usePathname で /en かどうかを判定して言語を切り替える
    ============================================= */
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-const navLinks = [
-  { href: '#service', label: 'サービス' },
-  { href: '#about',   label: '会社概要' },
-  { href: '#members', label: 'メンバー' },
-  { href: '#news',    label: 'ニュース' },
-  { href: '#faq',     label: 'FAQ' },
-  { href: '#contact', label: 'お問い合わせ' },
-]
+const navLinks = {
+  ja: [
+    { href: '#service', label: 'サービス' },
+    { href: '#about',   label: '会社概要' },
+    { href: '#members', label: 'メンバー' },
+    { href: '#news',    label: 'ニュース' },
+    { href: '#faq',     label: 'FAQ' },
+    { href: '#contact', label: 'お問い合わせ' },
+  ],
+  en: [
+    { href: '#service', label: 'Service' },
+    { href: '#about',   label: 'About' },
+    { href: '#members', label: 'Members' },
+    { href: '#news',    label: 'News' },
+    { href: '#faq',     label: 'FAQ' },
+    { href: '#contact', label: 'Contact' },
+  ],
+}
 
 /* SNSリンク（アカウント開設後に href に実際のURLを設定してください） */
 const socialLinks = [
@@ -42,17 +55,24 @@ const socialLinks = [
 ]
 
 export default function Footer() {
+  /* URLが /en で始まる場合は英語 */
+  const pathname = usePathname()
+  const lang: 'ja' | 'en' = pathname.startsWith('/en') ? 'en' : 'ja'
+  const links = navLinks[lang]
+
   return (
     <footer className="bg-[#0a0a14] text-white">
       <div className="max-w-[1140px] mx-auto px-6 py-16 flex flex-col md:flex-row items-start justify-between gap-10 border-b border-white/10">
 
         {/* ブランド・SNS */}
         <div>
-          <Link href="#top" className="font-[var(--font-en)] text-2xl font-bold tracking-tight">
+          <Link href={lang === 'en' ? '/en#top' : '#top'} className="font-[var(--font-en)] text-2xl font-bold tracking-tight">
             Piece<span className="text-[#5b6ef5]">.</span>
             <span className="text-[#5b6ef5]">ai</span>
           </Link>
-          <p className="mt-2.5 text-sm text-white/50">日本発・グローバルを変えるAIエージェント</p>
+          <p className="mt-2.5 text-sm text-white/50">
+            {lang === 'en' ? 'Japan-born AI Agent Platform, Going Global' : '日本発・グローバルを変えるAIエージェント'}
+          </p>
 
           {/* SNSアイコン（hrefが設定されていない場合はクリック不可） */}
           <div className="flex gap-2.5 mt-4">
@@ -90,7 +110,7 @@ export default function Footer() {
         {/* ナビゲーション */}
         <nav>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {navLinks.map(({ href, label }) => (
+            {links.map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} className="text-sm text-white/60 hover:text-white transition-colors">
                   {label}

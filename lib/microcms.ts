@@ -6,9 +6,10 @@
    ============================================= */
 import { createClient } from 'microcms-js-sdk'
 
+/* 環境変数未設定時はダミー値でクライアントを生成（実際のAPIは呼び出さない） */
 export const client = createClient({
-  serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN!,
-  apiKey:        process.env.MICROCMS_API_KEY!,
+  serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN || 'dummy',
+  apiKey:        process.env.MICROCMS_API_KEY        || 'dummy',
 })
 
 /** ニュース記事の型定義 */

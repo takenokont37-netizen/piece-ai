@@ -6,11 +6,16 @@
 import FadeIn from '@/components/FadeIn'
 import { client, type NewsItem } from '@/lib/microcms'
 
+type Lang = 'ja' | 'en'
+
 /** カテゴリ → バッジの色クラスを返す */
 const badgeColor: Record<string, string> = {
   'プレスリリース': 'bg-[#5b6ef5]/10 text-[#5b6ef5]',
   'お知らせ':       'bg-[#00c9a7]/10 text-[#00c9a7]',
   'メディア掲載':   'bg-purple-500/10 text-purple-500',
+  'Press Release':  'bg-[#5b6ef5]/10 text-[#5b6ef5]',
+  'Announcement':   'bg-[#00c9a7]/10 text-[#00c9a7]',
+  'Media':          'bg-purple-500/10 text-purple-500',
 }
 
 /** microCMS から最新10件のニュースを取得 */
@@ -66,8 +71,14 @@ function formatDate(item: NewsItem): string {
   return `${y}.${m}.${day}`
 }
 
-export default async function News() {
+const t = {
+  ja: { tag: 'NEWS', title: 'ニュース', viewAll: 'ニュース一覧を見る' },
+  en: { tag: 'NEWS', title: 'News',     viewAll: 'View All News' },
+}
+
+export default async function News({ lang = 'ja' }: { lang?: Lang }) {
   const newsItems = await getNews()
+  const tx = t[lang]
 
   return (
     <section id="news" className="bg-white py-24">
@@ -75,8 +86,8 @@ export default async function News() {
 
         {/* セクションヘッダー */}
         <div className="text-center mb-16">
-          <p className="text-xs font-semibold tracking-[0.2em] text-[#5b6ef5] font-[var(--font-en)] mb-3">NEWS</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e]">ニュース</h2>
+          <p className="text-xs font-semibold tracking-[0.2em] text-[#5b6ef5] font-[var(--font-en)] mb-3">{tx.tag}</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e]">{tx.title}</h2>
         </div>
 
         {/* ニュースリスト */}
@@ -92,38 +103,30 @@ export default async function News() {
                   rel="noopener noreferrer"
                   className="flex flex-wrap items-center gap-5 px-4 py-6 transition-colors hover:bg-gray-50 group"
                 >
-                  {/* 日付 */}
                   <time
                     className="font-[var(--font-en)] text-sm text-gray-400 shrink-0 w-20"
                     dateTime={item.date ?? item.publishedAt}
                   >
                     {formatDate(item)}
                   </time>
-
-                  {/* バッジ */}
                   <span className={`shrink-0 px-2.5 py-1 text-xs font-semibold rounded-full ${badgeColor[item.category] ?? 'bg-gray-100 text-gray-500'}`}>
                     {item.category}
                   </span>
-
-                  {/* タイトル */}
                   <p className="text-sm text-[#1a1a2e] leading-snug group-hover:text-[#5b6ef5] transition-colors">
                     {item.title}
                   </p>
                 </a>
                 ) : (
                 <div className="flex flex-wrap items-center gap-5 px-4 py-6 group">
-                  {/* 日付 */}
                   <time
                     className="font-[var(--font-en)] text-sm text-gray-400 shrink-0 w-20"
                     dateTime={item.date ?? item.publishedAt}
                   >
                     {formatDate(item)}
                   </time>
-                  {/* バッジ */}
                   <span className={`shrink-0 px-2.5 py-1 text-xs font-semibold rounded-full ${badgeColor[item.category] ?? 'bg-gray-100 text-gray-500'}`}>
                     {item.category}
                   </span>
-                  {/* タイトル */}
                   <p className="text-sm text-[#1a1a2e] leading-snug">
                     {item.title}
                   </p>
@@ -140,7 +143,7 @@ export default async function News() {
             href="#"
             className="inline-block px-8 py-3 border-2 border-[#5b6ef5] text-[#5b6ef5] text-sm font-semibold rounded-lg transition-all hover:bg-[#5b6ef5] hover:text-white hover:-translate-y-0.5"
           >
-            ニュース一覧を見る
+            {tx.viewAll}
           </a>
         </div>
       </div>

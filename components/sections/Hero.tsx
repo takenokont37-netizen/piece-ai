@@ -7,16 +7,46 @@
    ============================================= */
 import Link from 'next/link'
 
-const aiCards = [
-  { icon: '⚡', label: '業務自動化' },
-  { icon: '🤖', label: 'AIエージェント' },
-  { icon: '📊', label: 'データ連携' },
-  { icon: '🔗', label: 'システム統合' },
-]
+type Lang = 'ja' | 'en'
 
 const cardAnimClass = ['ai-card-1', 'ai-card-2', 'ai-card-3', 'ai-card-4']
 
-export default function Hero() {
+const t = {
+  ja: {
+    tag:  'Enterprise AI SaaS',
+    h1a:  '全ての人に、',
+    h1b:  'AIの力',
+    h1c:  'を。',
+    sub:  '3分以内で業務特化型AIエージェントを構築。プロンプト不要で、誰でも使いこなせるバイブワーキングAIエージェントプラットフォーム。',
+    cta1: '無料でお問い合わせ',
+    cta2: 'サービスを見る',
+    cards: [
+      { icon: '⚡', label: '業務自動化' },
+      { icon: '🤖', label: 'AIエージェント' },
+      { icon: '📊', label: 'データ連携' },
+      { icon: '🔗', label: 'システム統合' },
+    ],
+  },
+  en: {
+    tag:  'Enterprise AI SaaS',
+    h1a:  'AI for',
+    h1b:  'Everyone',
+    h1c:  '.',
+    sub:  'Build task-specific AI agents in under 3 minutes. No prompt engineering needed — our vibe working AI agent platform puts the power of AI in everyone\'s hands.',
+    cta1: 'Contact Us Free',
+    cta2: 'See Our Service',
+    cards: [
+      { icon: '⚡', label: 'Automation' },
+      { icon: '🤖', label: 'AI Agents' },
+      { icon: '📊', label: 'Data Connect' },
+      { icon: '🔗', label: 'Integration' },
+    ],
+  },
+}
+
+export default function Hero({ lang = 'ja' }: { lang?: Lang }) {
+  const tx = t[lang]
+
   return (
     <section id="top" className="relative min-h-screen flex items-center bg-[#0a0a14] overflow-hidden pt-[72px]">
 
@@ -32,41 +62,35 @@ export default function Hero() {
 
         {/* 左: テキスト */}
         <div className="text-white">
-          {/* タグライン */}
           <span className="inline-block text-xs font-semibold tracking-[0.2em] text-[#00c9a7] border border-[#00c9a7]/40 rounded-full px-3.5 py-1.5 mb-5">
-            Enterprise AI SaaS
+            {tx.tag}
           </span>
 
-          {/* メインコピー */}
           <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.2] tracking-tight mb-6">
-            全ての人に、<br />
+            {tx.h1a}<br />
             <span className="text-[#5b6ef5] relative">
-              AIの力
+              {tx.h1b}
               <span className="absolute bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-[#5b6ef5] to-[#00c9a7] rounded-full" />
             </span>
-            を。
+            {tx.h1c}
           </h1>
 
-          {/* サブコピー */}
           <p className="text-base text-white/70 leading-[1.8] mb-10">
-            3分以内で業務特化型AIエージェントを構築。<br className="hidden md:block" />
-            プロンプト不要で、誰でも使いこなせる<br />
-            バイブワーキングAIエージェントプラットフォーム。
+            {tx.sub}
           </p>
 
-          {/* CTAボタン */}
           <div className="flex flex-wrap gap-4">
             <Link
               href="#contact"
               className="px-8 py-3.5 bg-[#5b6ef5] text-white text-sm font-semibold rounded-lg shadow-[0_4px_14px_rgba(91,110,245,0.35)] transition-all hover:bg-[#3a4fd4] hover:shadow-[0_6px_20px_rgba(91,110,245,0.5)] hover:-translate-y-0.5"
             >
-              無料でお問い合わせ
+              {tx.cta1}
             </Link>
             <Link
               href="#service"
               className="px-8 py-3.5 border border-white/50 text-white/90 text-sm font-semibold rounded-lg transition-all hover:bg-white/10 hover:border-white hover:text-white hover:-translate-y-0.5"
             >
-              サービスを見る
+              {tx.cta2}
             </Link>
           </div>
         </div>
@@ -74,7 +98,7 @@ export default function Hero() {
         {/* 右: AI機能カードグリッド */}
         <div className="flex items-center justify-center">
           <div className="grid grid-cols-2 gap-4 max-w-[340px] w-full">
-            {aiCards.map(({ icon, label }, i) => (
+            {tx.cards.map(({ icon, label }, i) => (
               <div
                 key={label}
                 className={`${cardAnimClass[i]} bg-white/7 border border-white/12 rounded-2xl p-6 text-center backdrop-blur-md transition-all hover:bg-white/12 hover:border-[#5b6ef5]/50 hover:-translate-y-1`}

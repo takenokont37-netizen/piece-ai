@@ -3,19 +3,39 @@
    ヘッダー / ナビゲーション
    - スクロールで背景が白くなる
    - スマホでハンバーガーメニュー表示
+   - EN/JA 言語切り替えボタン
    ============================================= */
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-const navLinks = [
-  { href: '#service', label: 'サービス' },
-  { href: '#about',   label: '会社概要' },
-  { href: '#news',    label: 'ニュース' },
-]
+const navLinks = {
+  ja: [
+    { href: '#service', label: 'サービス' },
+    { href: '#about',   label: '会社概要' },
+    { href: '#news',    label: 'ニュース' },
+  ],
+  en: [
+    { href: '#service', label: 'Service' },
+    { href: '#about',   label: 'About' },
+    { href: '#news',    label: 'News' },
+  ],
+}
+
+const t = {
+  ja: { contact: 'お問い合わせ', contactHref: '#contact', langLabel: 'EN', langHref: '/en',  menuOpen: 'メニューを閉じる', menuClose: 'メニューを開く' },
+  en: { contact: 'Contact',      contactHref: '#contact', langLabel: 'JA', langHref: '/',    menuOpen: 'Close menu',       menuClose: 'Open menu' },
+}
 
 export default function Header() {
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
+
+  /* 現在のパスから言語を判定 */
+  const pathname = usePathname()
+  const lang: 'ja' | 'en' = pathname.startsWith('/en') ? 'en' : 'ja'
+  const tx   = t[lang]
+  const links = navLinks[lang]
 
   /* スクロール量に応じてヘッダー背景を切り替え */
   useEffect(() => {
@@ -45,7 +65,7 @@ export default function Header() {
 
           {/* ロゴ */}
           <Link
-            href="#top"
+            href={lang === 'en' ? '/en#top' : '#top'}
             className={`font-[var(--font-en)] text-2xl font-bold tracking-tight transition-colors ${
               scrolled ? 'text-[#1a1a2e]' : 'text-white'
             }`}
@@ -56,7 +76,7 @@ export default function Header() {
 
           {/* PC用ナビ */}
           <nav className="hidden md:flex items-center gap-2">
-            {navLinks.map(({ href, label }) => (
+            {links.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
@@ -69,11 +89,24 @@ export default function Header() {
                 {label}
               </Link>
             ))}
+
+            {/* 言語切り替えボタン */}
             <Link
-              href="#contact"
+              href={tx.langHref}
+              className={`px-3 py-2 text-xs font-bold rounded-md border transition-all ${
+                scrolled
+                  ? 'border-gray-200 text-gray-500 hover:border-[#5b6ef5] hover:text-[#5b6ef5]'
+                  : 'border-white/30 text-white/70 hover:border-white hover:text-white'
+              }`}
+            >
+              {tx.langLabel}
+            </Link>
+
+            <Link
+              href={tx.contactHref}
               className="ml-2 px-5 py-2.5 bg-[#5b6ef5] text-white text-sm font-semibold rounded-lg shadow-[0_4px_14px_rgba(91,110,245,0.35)] transition-all hover:bg-[#3a4fd4] hover:-translate-y-0.5"
             >
-              お問い合わせ
+              {tx.contact}
             </Link>
           </nav>
 
@@ -81,7 +114,7 @@ export default function Header() {
           <button
             className="md:hidden flex flex-col justify-between w-7 h-5 p-0 overflow-hidden"
             onClick={() => setMenuOpen(v => !v)}
-            aria-label={menuOpen ? 'メニューを閉じる' : 'メニューを開く'}
+            aria-label={menuOpen ? tx.menuOpen : tx.menuClose}
             aria-expanded={menuOpen}
           >
             {[0, 1, 2].map(i => (
@@ -109,7 +142,7 @@ export default function Header() {
         }`}
       >
         <ul className="flex flex-col">
-          {[...navLinks, { href: '#contact', label: 'お問い合わせ' }].map(({ href, label }) => (
+          {[...links, { href: tx.contactHref, label: tx.contact }].map(({ href, label }) => (
             <li key={href}>
               <Link
                 href={href}
@@ -120,6 +153,16 @@ export default function Header() {
               </Link>
             </li>
           ))}
+          {/* 言語切り替え */}
+          <li>
+            <Link
+              href={tx.langHref}
+              onClick={closeMenu}
+              className="block px-6 py-4 text-base font-medium text-[#5b6ef5] border-b border-gray-100 hover:bg-gray-50 transition-colors"
+            >
+              {tx.langLabel === 'EN' ? '🌐 English' : '🌐 日本語'}
+            </Link>
+          </li>
         </ul>
       </div>
     </>
