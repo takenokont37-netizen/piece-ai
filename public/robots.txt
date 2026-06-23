@@ -17,4 +17,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://piece-ai.vercel.app/sitemap.xml
+Sitemap: https://loveandpiece.ai/sitemap.xml

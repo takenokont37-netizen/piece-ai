@@ -30,11 +30,11 @@ export const metadata: Metadata = {
   title: 'Piece.ai | AIエージェントで、非定型業務を変える。',
   description:
     'Piece.aiは、営業・バックオフィスなど非定型業務をAIエージェントで自動化するEnterprise AI SaaSです。ノーコードで業務フローを設計し、既存システムとシームレスに連携。日本発・グローバルを目指します。',
-  metadataBase: new URL('https://piece-ai.vercel.app'), // 独自ドメイン確定後に変更
+  metadataBase: new URL('https://loveandpiece.ai'),
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
-    url: 'https://piece-ai.vercel.app/',
+    url: 'https://loveandpiece.ai/',
     title: 'Piece.ai | AIエージェントで、非定型業務を変える。',
     description:
       'Piece.aiは、営業・バックオフィスなど非定型業務をAIエージェントで自動化するEnterprise AI SaaSです。ノーコードで業務フローを設計し、既存システムとシームレスに連携。',
@@ -57,7 +57,7 @@ const jsonLdOrganization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Piece.ai株式会社',
-  url: 'https://piece-ai.vercel.app',
+  url: 'https://loveandpiece.ai',
   description: '非定型業務を自動化するAIエージェントサービス（Enterprise AI SaaS）。日本発・グローバルを目指すスタートアップ。',
   foundingDate: '2024',
   numberOfEmployees: { '@type': 'QuantitativeValue', value: 13 },
@@ -73,7 +73,7 @@ const jsonLdWebSite = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Piece.ai',
-  url: 'https://piece-ai.vercel.app',
+  url: 'https://loveandpiece.ai',
   description: '非定型業務を自動化するAIエージェントサービス',
   publisher: { '@type': 'Organization', name: 'Piece.ai株式会社' },
 }
