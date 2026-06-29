@@ -4,7 +4,6 @@
    ============================================= */
 import type { Metadata } from 'next'
 import Hero    from '@/components/sections/Hero'
-import Stats   from '@/components/sections/Stats'
 import Service from '@/components/sections/Service'
 import About   from '@/components/sections/About'
 import Members from '@/components/sections/Members'
@@ -28,7 +27,6 @@ export default function HomeEn() {
   return (
     <>
       <Hero    lang="en" />
-      <Stats   lang="en" />
       <Service lang="en" />
       <About   lang="en" />
       <Members lang="en" />

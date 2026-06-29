@@ -19,13 +19,6 @@ const t = {
     visionTitle:  '全ての人にAIの力を、全人類の幸福を最大化する',
     visionDesc:   '世界一使いやすいプラットフォームで、AI格差を是正し、すべての人がAIの恩恵を受けられる社会を目指します。',
 
-    valuesTag: 'VALUES',
-    values: [
-      'ファーストクラス体験', '自由な発想', '自律的行動', 'AIネイティブ思考',
-      'イシュードリブン', 'グロースマインドセット', '三方よし',
-      'グローバルマインドセット', 'Go Bold', '稼ぐ・削る・防ぐ',
-    ],
-
     ceoRole: '代表取締役 CEO',
     ceoName: 'Yusuke Aoki',
     ceoBio:  '元伊藤忠商事にて最年少で新規事業責任者を務めた後、AI領域で連続起業。Piece.aiを創業し、全人類の幸福最大化というミッションに取り組む。',
@@ -50,13 +43,6 @@ const t = {
     visionTag:    'VISION',
     visionTitle:  'AI for All — Maximizing the Happiness of All Humanity',
     visionDesc:   'With the world\'s most intuitive platform, we bridge the AI divide and ensure that everyone can benefit from the power of AI.',
-
-    valuesTag: 'VALUES',
-    values: [
-      'First-Class Experience', 'Free Thinking', 'Autonomous Action', 'AI-Native Mindset',
-      'Issue-Driven', 'Growth Mindset', 'Win-Win-Win',
-      'Global Mindset', 'Go Bold', 'Earn · Cut · Protect',
-    ],
 
     ceoRole: 'CEO & Co-Founder',
     ceoName: 'Yusuke Aoki',
@@ -106,23 +92,6 @@ export default function About({ lang = 'ja' }: { lang?: Lang }) {
               <p className="text-xs font-semibold tracking-[0.25em] text-[#5b6ef5] mb-5 font-[var(--font-en)]">{tx.visionTag}</p>
               <p className="text-2xl md:text-3xl font-bold text-[#1a1a2e] leading-[1.4] mb-5">{tx.visionTitle}</p>
               <p className="max-w-xl mx-auto text-sm text-gray-500 leading-[1.8]">{tx.visionDesc}</p>
-            </div>
-          </FadeIn>
-
-          {/* バリュー */}
-          <FadeIn>
-            <div className="bg-white border border-gray-200 rounded-3xl p-12">
-              <h3 className="text-xs font-semibold tracking-[0.25em] text-[#5b6ef5] text-center mb-8 font-[var(--font-en)]">{tx.valuesTag}</h3>
-              <div className="flex flex-wrap justify-center gap-3">
-                {tx.values.map((v) => (
-                  <span
-                    key={v}
-                    className="px-5 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm font-semibold text-[#1a1a2e] hover:border-[#5b6ef5] hover:text-[#5b6ef5] transition-colors"
-                  >
-                    {v}
-                  </span>
-                ))}
-              </div>
             </div>
           </FadeIn>
 

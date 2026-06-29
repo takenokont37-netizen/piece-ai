@@ -17,7 +17,7 @@ const t = {
     h1a:  '全ての人に、',
     h1b:  'AIの力',
     h1c:  'を。',
-    sub:  '3分以内で業務特化型AIエージェントを構築。プロンプト不要で、誰でも使いこなせるバイブワーキングAIエージェントプラットフォーム。',
+    sub:  'プロンプト不要。AIを知らない人でも、自分専用の業務AIをすぐに動かせる。「全員が使いこなせる」を実現するエンタープライズAIエージェント基盤。',
     cta1: '無料でお問い合わせ',
     cta2: 'サービスを見る',
     cards: [
@@ -32,7 +32,7 @@ const t = {
     h1a:  'AI for',
     h1b:  'Everyone',
     h1c:  '.',
-    sub:  'Build task-specific AI agents in under 3 minutes. No prompt engineering needed — our vibe working AI agent platform puts the power of AI in everyone\'s hands.',
+    sub:  'No prompts needed. Anyone — regardless of AI knowledge — can run their own task-specific AI agent instantly. The enterprise AI agent platform that makes "everyone can use it" a reality.',
     cta1: 'Contact Us Free',
     cta2: 'See Our Service',
     cards: [
