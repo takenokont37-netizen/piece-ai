@@ -6,22 +6,26 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+/* セクションアンカー（id）と採用ページ（route: 先頭が / のもの）。
+   アンカーは別ページから踏まれてもトップに飛ぶよう buildHref で前置する */
 const navLinks = {
   ja: [
-    { href: '#service', label: 'サービス' },
-    { href: '#about',   label: '会社概要' },
-    { href: '#members', label: 'メンバー' },
-    { href: '#news',    label: 'ニュース' },
-    { href: '#faq',     label: 'FAQ' },
-    { href: '#contact', label: 'お問い合わせ' },
+    { id: 'service',  label: 'サービス' },
+    { id: 'about',    label: '会社概要' },
+    { id: 'members',  label: 'メンバー' },
+    { id: 'news',     label: 'ニュース' },
+    { id: 'faq',      label: 'FAQ' },
+    { id: 'contact',  label: 'お問い合わせ' },
+    { route: '/recruit', label: '採用情報' },
   ],
   en: [
-    { href: '#service', label: 'Service' },
-    { href: '#about',   label: 'About' },
-    { href: '#members', label: 'Members' },
-    { href: '#news',    label: 'News' },
-    { href: '#faq',     label: 'FAQ' },
-    { href: '#contact', label: 'Contact' },
+    { id: 'service',  label: 'Service' },
+    { id: 'about',    label: 'About' },
+    { id: 'members',  label: 'Members' },
+    { id: 'news',     label: 'News' },
+    { id: 'faq',      label: 'FAQ' },
+    { id: 'contact',  label: 'Contact' },
+    { route: '/en/recruit', label: 'Careers' },
   ],
 }
 
@@ -60,13 +64,19 @@ export default function Footer() {
   const lang: 'ja' | 'en' = pathname.startsWith('/en') ? 'en' : 'ja'
   const links = navLinks[lang]
 
+  /* トップ（/ ・ /en）以外では、アンカーにホームのパスを前置する */
+  const isHome = pathname === '/' || pathname === '/en'
+  const homeBase = lang === 'en' ? '/en' : ''
+  const linkHref = (item: { id?: string; route?: string }) =>
+    item.route ?? (isHome ? `#${item.id}` : `${homeBase}/#${item.id}`)
+
   return (
     <footer className="bg-[#0a0a14] text-white">
       <div className="max-w-[1140px] mx-auto px-6 py-16 flex flex-col md:flex-row items-start justify-between gap-10 border-b border-white/10">
 
         {/* ブランド・SNS */}
         <div>
-          <Link href={lang === 'en' ? '/en#top' : '#top'} className="font-[var(--font-en)] text-2xl font-bold tracking-tight">
+          <Link href={isHome ? '#top' : `${homeBase}/#top`} className="font-[var(--font-en)] text-2xl font-bold tracking-tight">
             Piece<span className="text-[#5b6ef5]">.</span>
             <span className="text-[#5b6ef5]">ai</span>
           </Link>
@@ -110,10 +120,10 @@ export default function Footer() {
         {/* ナビゲーション */}
         <nav>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {links.map(({ href, label }) => (
-              <li key={href}>
-                <Link href={href} className="text-sm text-white/60 hover:text-white transition-colors">
-                  {label}
+            {links.map((item) => (
+              <li key={item.label}>
+                <Link href={linkHref(item)} className="text-sm text-white/60 hover:text-white transition-colors">
+                  {item.label}
                 </Link>
               </li>
             ))}

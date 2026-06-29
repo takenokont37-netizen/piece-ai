@@ -9,22 +9,25 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+/* セクションアンカー（id）と採用ページ（route）。
+   アンカーはトップページ内リンクなので、別ページにいるときは
+   ホームのパスを前置して /#service の形にする（buildHref で処理） */
 const navLinks = {
   ja: [
-    { href: '#service', label: 'サービス' },
-    { href: '#about',   label: '会社概要' },
-    { href: '#news',    label: 'ニュース' },
+    { id: 'service', label: 'サービス' },
+    { id: 'about',   label: '会社概要' },
+    { id: 'news',    label: 'ニュース' },
   ],
   en: [
-    { href: '#service', label: 'Service' },
-    { href: '#about',   label: 'About' },
-    { href: '#news',    label: 'News' },
+    { id: 'service', label: 'Service' },
+    { id: 'about',   label: 'About' },
+    { id: 'news',    label: 'News' },
   ],
 }
 
 const t = {
-  ja: { contact: 'お問い合わせ', contactHref: '#contact', langLabel: 'EN', langHref: '/en',  menuOpen: 'メニューを閉じる', menuClose: 'メニューを開く' },
-  en: { contact: 'Contact',      contactHref: '#contact', langLabel: 'JA', langHref: '/',    menuOpen: 'Close menu',       menuClose: 'Open menu' },
+  ja: { contact: 'お問い合わせ', contactId: 'contact', recruit: '採用情報', recruitHref: '/recruit',     langLabel: 'EN', langHref: '/en',  menuOpen: 'メニューを閉じる', menuClose: 'メニューを開く' },
+  en: { contact: 'Contact',      contactId: 'contact', recruit: 'Careers',  recruitHref: '/en/recruit',  langLabel: 'JA', langHref: '/',    menuOpen: 'Close menu',       menuClose: 'Open menu' },
 }
 
 export default function Header() {
@@ -36,6 +39,13 @@ export default function Header() {
   const lang: 'ja' | 'en' = pathname.startsWith('/en') ? 'en' : 'ja'
   const tx   = t[lang]
   const links = navLinks[lang]
+
+  /* トップページにいるか（/ または /en）を判定 */
+  const isHome = pathname === '/' || pathname === '/en'
+  /* セクションアンカーのhref：トップ内なら #id、別ページなら /#id（/en#id） */
+  const homeBase = lang === 'en' ? '/en' : ''
+  const buildHref = (id: string) => (isHome ? `#${id}` : `${homeBase}/#${id}`)
+  const contactHref = buildHref(tx.contactId)
 
   /* スクロール量に応じてヘッダー背景を切り替え */
   useEffect(() => {
@@ -76,10 +86,10 @@ export default function Header() {
 
           {/* PC用ナビ */}
           <nav className="hidden md:flex items-center gap-2">
-            {links.map(({ href, label }) => (
+            {links.map(({ id, label }) => (
               <Link
-                key={href}
-                href={href}
+                key={id}
+                href={buildHref(id)}
                 className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
                   scrolled
                     ? 'text-gray-500 hover:text-[#1a1a2e] hover:bg-gray-50'
@@ -89,6 +99,18 @@ export default function Header() {
                 {label}
               </Link>
             ))}
+
+            {/* 採用情報（独立ページへのリンク） */}
+            <Link
+              href={tx.recruitHref}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                scrolled
+                  ? 'text-gray-500 hover:text-[#1a1a2e] hover:bg-gray-50'
+                  : 'text-white/85 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              {tx.recruit}
+            </Link>
 
             {/* 言語切り替えボタン */}
             <Link
@@ -103,7 +125,7 @@ export default function Header() {
             </Link>
 
             <Link
-              href={tx.contactHref}
+              href={contactHref}
               className="ml-2 px-5 py-2.5 bg-[#5b6ef5] text-white text-sm font-semibold rounded-lg shadow-[0_4px_14px_rgba(91,110,245,0.35)] transition-all hover:bg-[#3a4fd4] hover:-translate-y-0.5"
             >
               {tx.contact}
@@ -142,7 +164,11 @@ export default function Header() {
         }`}
       >
         <ul className="flex flex-col">
-          {[...links, { href: tx.contactHref, label: tx.contact }].map(({ href, label }) => (
+          {[
+            ...links.map(({ id, label }) => ({ href: buildHref(id), label })),
+            { href: tx.recruitHref, label: tx.recruit },
+            { href: contactHref,    label: tx.contact },
+          ].map(({ href, label }) => (
             <li key={href}>
               <Link
                 href={href}
