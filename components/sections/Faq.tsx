@@ -14,23 +14,23 @@ const t = {
     faqs: [
       {
         q: 'Piece.aiとはどのようなサービスですか？',
-        a: 'Piece.aiは、これまで自動化できなかった非定型業務をAIエージェントで解決するEnterprise AI SaaSです。「AI版キントーン」として、営業・バックオフィスなど複雑な業務フローをノーコードで設計・自動化できます。',
+        a: 'Piece.aiは、AIの専門知識がない社員でも業務特化型のAIエージェントを即日から使いこなせるエンタープライズAI SaaSです。個人のAI活用に留まらず、ハイパフォーマーの判断・ノウハウをAIが再現し、チーム・組織全体の生産性を底上げします。',
       },
       {
         q: 'どのような業務を自動化できますか？',
-        a: 'ルーティン作業はもちろん、状況判断が必要な複雑な業務フローにも対応します。特に営業部門の非定型業務（見積作成・顧客対応・レポート生成など）での活用を得意としています。',
+        a: 'ルーティン作業はもちろん、状況判断が必要な非定型業務にも対応します。これまで属人化していた複雑な業務フローをAIが担うことで、特定の担当者に依存していた業務を組織全体の力に変えます。',
       },
       {
         q: '導入にエンジニアは必要ですか？',
-        a: '不要です。キントーンのようにノーコードで業務フローを設計できるため、エンジニアがいなくてもAIエージェントを運用できます。',
+        a: '不要です。プログラミングの知識がなくても、専任エンジニアがいなくても、AIエージェントの設計・運用が可能です。現場の担当者が主体となって導入・活用を進められます。',
       },
       {
         q: '既存のシステムと連携できますか？',
-        a: 'はい。社内の各種ツールやデータベースとシームレスに接続可能です。情報の分断を解消し、全社横断での業務効率化を実現します。',
+        a: 'はい。社内で使っているコミュニケーションツール・メール・カレンダーなどと接続可能です。各社員の閲覧・編集権限を維持したまま、AIが必要な情報を自動で参照・連携します。',
       },
       {
         q: 'セキュリティ・コンプライアンス面は大丈夫ですか？',
-        a: '大企業が求めるセキュリティ・ガバナンス要件に対応しています。権限管理・監査ログなど、エンタープライズ利用に必要な機能を備えています。',
+        a: '大手企業が求めるセキュリティ・ガバナンス要件に対応しています。権限管理・監査ログなど、エンタープライズ利用に必要な機能を備え、安心して業務の中枢をお任せいただけます。',
       },
     ],
   },
@@ -40,23 +40,23 @@ const t = {
     faqs: [
       {
         q: 'What is Piece.ai?',
-        a: 'Piece.ai is an Enterprise AI SaaS that uses AI agents to automate non-routine workflows that were previously impossible to automate — like a "no-code Kintone for AI." Design and automate complex sales and back-office workflows without writing a single line of code.',
+        a: 'Piece.ai is an Enterprise AI SaaS that lets every employee — regardless of AI expertise — put a task-specific AI agent to work from day one. Beyond individual productivity, it replicates the judgment and know-how of top performers across your entire team.',
       },
       {
         q: 'What kinds of tasks can be automated?',
-        a: 'Beyond routine tasks, Piece.ai handles complex, judgment-heavy workflows. It excels especially at non-routine sales tasks such as quote generation, customer support, and report creation.',
+        a: 'Both routine tasks and complex, judgment-heavy non-routine workflows. Piece.ai takes over work that was previously siloed to specific individuals, transforming what once depended on one person into an organizational capability.',
       },
       {
         q: 'Do we need engineers to implement it?',
-        a: 'No. Like Kintone, you can design workflows without any coding, so AI agents can be operated without an engineering team.',
+        a: 'No. No programming knowledge or dedicated engineering team is required. Business teams can lead the rollout and run AI agents on their own.',
       },
       {
         q: 'Does it integrate with existing systems?',
-        a: 'Yes. It connects seamlessly with your internal tools and databases, eliminating information silos and enabling company-wide efficiency.',
+        a: 'Yes. It connects with the communication tools, email, and calendars your team already uses. AI accesses and shares information automatically, while respecting each employee\'s existing access permissions.',
       },
       {
         q: 'What about security and compliance?',
-        a: 'Piece.ai meets the security and governance requirements of large enterprises, with role-based access control, audit logs, and all the features needed for enterprise use.',
+        a: 'Piece.ai meets the security and governance requirements of large enterprises, with role-based access control, audit logs, and all the features needed for enterprise-wide deployment — giving you full confidence to put critical workflows in our hands.',
       },
     ],
   },
