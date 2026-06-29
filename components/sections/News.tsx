@@ -5,6 +5,7 @@
    ============================================= */
 import FadeIn from '@/components/FadeIn'
 import { client, type NewsItem } from '@/lib/microcms'
+import NewsModal from '@/components/NewsModal'
 
 type Lang = 'ja' | 'en'
 
@@ -29,7 +30,7 @@ async function getNews(): Promise<NewsItem[]> {
   try {
     const data = await client.getList<NewsItem>({
       endpoint: 'news',
-      queries:  { limit: 10, orders: '-publishedAt' },
+      queries:  { limit: 100, orders: '-publishedAt' },
     })
     return data.contents
   } catch (err) {
@@ -71,6 +72,8 @@ function formatDate(item: NewsItem): string {
   return `${y}.${m}.${day}`
 }
 
+const PREVIEW_COUNT = 3
+
 const t = {
   ja: { tag: 'NEWS', title: 'ニュース', viewAll: 'ニュース一覧を見る' },
   en: { tag: 'NEWS', title: 'News',     viewAll: 'View All News' },
@@ -90,9 +93,9 @@ export default async function News({ lang = 'ja' }: { lang?: Lang }) {
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e]">{tx.title}</h2>
         </div>
 
-        {/* ニュースリスト */}
+        {/* ニュースリスト（最新3件プレビュー） */}
         <ul className="border-t border-gray-200">
-          {newsItems.map((item, i) => (
+          {newsItems.slice(0, PREVIEW_COUNT).map((item, i) => (
             <FadeIn key={item.id} delay={i * 60}>
               <li className="border-b border-gray-200">
                 {/* リンクあり→<a>、なし→<div>（#なしで誤動作を防ぐ） */}
@@ -137,14 +140,9 @@ export default async function News({ lang = 'ja' }: { lang?: Lang }) {
           ))}
         </ul>
 
-        {/* もっと見るボタン */}
+        {/* ニュース一覧モーダルボタン */}
         <div className="text-center mt-10">
-          <a
-            href="#"
-            className="inline-block px-8 py-3 border-2 border-[#5b6ef5] text-[#5b6ef5] text-sm font-semibold rounded-lg transition-all hover:bg-[#5b6ef5] hover:text-white hover:-translate-y-0.5"
-          >
-            {tx.viewAll}
-          </a>
+          <NewsModal items={newsItems} lang={lang} label={tx.viewAll} />
         </div>
       </div>
     </section>
