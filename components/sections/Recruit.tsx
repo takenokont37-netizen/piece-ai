@@ -1,7 +1,7 @@
 /* =============================================
    採用ページ本体（/recruit ・ /en/recruit で使用）
    - トップページと差別化するため、ティール基調＋パンくず＋専用フォーム
-   - 構成：ヒーロー / ビジョン / なぜPiece.aiか / 募集職種 / 応募フォーム
+   - 構成：ヒーロー / なぜPiece.aiか / 募集職種 / 応募フォーム
    ============================================= */
 import Link from 'next/link'
 import FadeIn from '@/components/FadeIn'
@@ -20,20 +20,11 @@ const t = {
     heroSub: 'AIをすべての人の力に。テクノロジーの恩恵がごく一部にしか届かない現実を変えるために、Piece.aiは動いています。その挑戦に共感し、一緒に走ってくれる仲間を探しています。',
     heroCta: '募集職種を見る',
 
-    /* ビジョン帯 */
-    visionTag:   'OUR VISION',
-    visionTitle: '日本発、世界のAI革命を完遂する。',
-    visionPoints: [
-      'Day 1からグローバル市場で、時価総額10兆円規模の企業を目指す。',
-      '1〜3年後には、日本のIP × AIエージェントをコンシューマー向けに展開。',
-      '世界的リーダー企業との戦略的パートナーシップ・大型資金調達を推進。',
-    ],
-
     /* なぜPiece.aiか */
     whyTag:   'WHY PIECE.AI',
     whyTitle: 'Piece.aiで働く理由',
     whys: [
-      { icon: '🚀', title: '創業期だからこその裁量', desc: '組織はまだ十数名。あなたの意思決定が、そのまま会社の方向性になります。ゼロイチのフェーズから事業の中核を担えます。' },
+      { icon: '🚀', title: '創業期だからこその裁量', desc: '組織はまだ十数名。役割の壁が薄く、自分が提案したことをそのまま形にできます。ゼロイチのフェーズから事業の中核を担えます。' },
       { icon: '📈', title: '将来の経営・幹部候補', desc: 'CXO・VP・マネージャークラスとして参画いただき、会社の成長とともに経営の中枢を担うキャリアを描けます。' },
       { icon: '🧩', title: 'ミッションドリブン', desc: '「すべての人にAIの力を」。富裕層・大企業で得た利益を、AIの恩恵を受けられない人々へ再配分し、利益と社会貢献を両立させます。' },
       { icon: '💡', title: '第一線のプロが集う環境', desc: '元伊藤忠商事 最年少新規事業責任者の代表をはじめ、各業界の専門家が集結。互いの暗黙知が交わる場で専門性を磨けます。' },
@@ -71,18 +62,10 @@ const t = {
     heroSub: 'AI for everyone — not just the few. Piece.ai is working to change the reality where the benefits of technology reach only a handful of people. We\'re looking for people who share this mission and want to run with us.',
     heroCta: 'See Open Positions',
 
-    visionTag:   'OUR VISION',
-    visionTitle: 'Complete the global AI revolution — from Japan.',
-    visionPoints: [
-      'Aiming for a ¥10-trillion-scale company on the global market from Day 1.',
-      'Within 1–3 years, bringing Japanese IP × AI agents to consumers.',
-      'Driving strategic partnerships and major fundraising with world-leading companies.',
-    ],
-
     whyTag:   'WHY PIECE.AI',
     whyTitle: 'Why Work at Piece.ai',
     whys: [
-      { icon: '🚀', title: 'Real ownership from the start', desc: 'We are still a team of just over a dozen. Your decisions shape the company. Own the core of the business from the zero-to-one phase.' },
+      { icon: '🚀', title: 'Real ownership from the start', desc: 'We are still a team of just over a dozen. Walls between roles are thin — what you propose, you can build. Own the core of the business from day one.' },
       { icon: '📈', title: 'A path to leadership', desc: 'Join as a CXO, VP, or manager and grow into the core of management as the company scales.' },
       { icon: '🧩', title: 'Mission-driven', desc: '"AI for Everyone." We redistribute profits earned from enterprises and the wealthy to those left behind by AI — combining profit with social impact.' },
       { icon: '💡', title: 'Surrounded by top professionals', desc: 'Led by a CEO who was the youngest-ever head of new business at Itochu, our team brings together experts from every industry.' },
@@ -150,24 +133,6 @@ export default function Recruit({ lang = 'ja' }: { lang?: Lang }) {
           >
             {tx.heroCta}
           </a>
-        </div>
-      </section>
-
-      {/* ===== ビジョン帯（トップにない専用コンテンツ） ===== */}
-      <section className="bg-[#0a0a14] py-20">
-        <div className="max-w-[1000px] mx-auto px-6">
-          <FadeIn>
-            <p className="text-xs font-semibold tracking-[0.25em] text-[#00c9a7] font-[var(--font-en)] mb-5">{tx.visionTag}</p>
-            <h2 className="text-2xl md:text-4xl font-bold text-white leading-[1.45] mb-10">{tx.visionTitle}</h2>
-            <ul className="flex flex-col gap-4">
-              {tx.visionPoints.map((p) => (
-                <li key={p} className="flex items-start gap-3 text-sm md:text-base text-white/70 leading-[1.8]">
-                  <span className="mt-2 shrink-0 w-2 h-2 rounded-full bg-gradient-to-br from-[#00c9a7] to-[#5b6ef5]" />
-                  <span>{p}</span>
-                </li>
-              ))}
-            </ul>
-          </FadeIn>
         </div>
       </section>
 
