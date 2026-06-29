@@ -17,7 +17,7 @@ const t = {
     badge:   "WE'RE HIRING",
     heroH1a: '「AI for Everyone」を、',
     heroH1b: '共につくる仲間へ。',
-    heroSub: 'Piece.aiは、日本発・グローバル時価総額10兆円規模を目指すEnterprise AI SaaSスタートアップです。その挑戦を共にする仲間を、各領域で募集しています。',
+    heroSub: 'AIをすべての人の力に。テクノロジーの恩恵がごく一部にしか届かない現実を変えるために、Piece.aiは動いています。その挑戦に共感し、一緒に走ってくれる仲間を探しています。',
     heroCta: '募集職種を見る',
 
     /* ビジョン帯 */
@@ -68,7 +68,7 @@ const t = {
     badge:   "WE'RE HIRING",
     heroH1a: 'Build "AI for Everyone"',
     heroH1b: 'with us.',
-    heroSub: 'Piece.ai is a Japan-born Enterprise AI SaaS startup aiming for a global market cap of ¥10 trillion. We are hiring people across every domain to take on this challenge together.',
+    heroSub: 'AI for everyone — not just the few. Piece.ai is working to change the reality where the benefits of technology reach only a handful of people. We\'re looking for people who share this mission and want to run with us.',
     heroCta: 'See Open Positions',
 
     visionTag:   'OUR VISION',
