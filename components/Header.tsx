@@ -46,6 +46,9 @@ export default function Header() {
   const homeBase = lang === 'en' ? '/en' : ''
   const buildHref = (id: string) => (isHome ? `#${id}` : `${homeBase}/#${id}`)
   const contactHref = buildHref(tx.contactId)
+  /* ロゴのリンク先：トップ内ならページ先頭へスクロール、別ページならトップページへ戻る */
+  const homeRoot = lang === 'en' ? '/en' : '/'
+  const logoHref = isHome ? '#top' : homeRoot
 
   /* スクロール量に応じてヘッダー背景を切り替え */
   useEffect(() => {
@@ -73,9 +76,9 @@ export default function Header() {
       >
         <div className="max-w-[1140px] mx-auto px-6 h-full flex items-center justify-between">
 
-          {/* ロゴ */}
+          {/* ロゴ（別ページではトップページへ戻る） */}
           <Link
-            href={lang === 'en' ? '/en#top' : '#top'}
+            href={logoHref}
             className={`font-[var(--font-en)] text-2xl font-bold tracking-tight transition-colors ${
               scrolled ? 'text-[#1a1a2e]' : 'text-white'
             }`}
@@ -100,13 +103,14 @@ export default function Header() {
               </Link>
             ))}
 
-            {/* 採用情報（独立ページへのリンク） */}
+            {/* 採用情報（独立ページ）— 別ページであることが伝わるよう、
+                ティールのアウトラインpillでセクションリンクと差別化する */}
             <Link
               href={tx.recruitHref}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+              className={`ml-1 px-4 py-2 text-sm font-semibold rounded-md border transition-all ${
                 scrolled
-                  ? 'text-gray-500 hover:text-[#1a1a2e] hover:bg-gray-50'
-                  : 'text-white/85 hover:text-white hover:bg-white/10'
+                  ? 'border-[#00c9a7] text-[#00a98e] hover:bg-[#00c9a7] hover:text-white'
+                  : 'border-[#00c9a7]/60 text-[#00c9a7] hover:bg-[#00c9a7] hover:text-white hover:border-[#00c9a7]'
               }`}
             >
               {tx.recruit}
@@ -165,15 +169,19 @@ export default function Header() {
       >
         <ul className="flex flex-col">
           {[
-            ...links.map(({ id, label }) => ({ href: buildHref(id), label })),
-            { href: tx.recruitHref, label: tx.recruit },
-            { href: contactHref,    label: tx.contact },
-          ].map(({ href, label }) => (
+            ...links.map(({ id, label }) => ({ href: buildHref(id), label, recruit: false })),
+            { href: tx.recruitHref, label: tx.recruit, recruit: true },
+            { href: contactHref,    label: tx.contact, recruit: false },
+          ].map(({ href, label, recruit }) => (
             <li key={href}>
               <Link
                 href={href}
                 onClick={closeMenu}
-                className="block px-6 py-4 text-base font-medium text-[#1a1a2e] border-b border-gray-100 hover:bg-gray-50 hover:text-[#5b6ef5] transition-colors"
+                className={`block px-6 py-4 text-base border-b border-gray-100 transition-colors ${
+                  recruit
+                    ? 'font-bold text-[#00a98e] hover:bg-[#00c9a7]/10'
+                    : 'font-medium text-[#1a1a2e] hover:bg-gray-50 hover:text-[#5b6ef5]'
+                }`}
               >
                 {label}
               </Link>

@@ -10,11 +10,11 @@ import { NextRequest, NextResponse } from 'next/server'
 
 /** お問い合わせ種別の日本語ラベル */
 const typeLabel: Record<string, string> = {
-  meeting: '面談を希望する',
-  service: 'サービスについて詳しく聞きたい',
-  demo:    'デモを見たい',
-  price:   '料金について',
-  other:   'その他',
+  service:     'サービス導入のご相談',
+  press:       '取材・メディア掲載',
+  recruit:     '採用・入社のご応募',
+  partnership: 'パートナーシップ・協業',
+  other:       'その他',
 }
 
 /** バリデーション */
@@ -38,6 +38,7 @@ async function notifySlack(params: {
   company: string
   email: string
   type: string
+  position: string
   message: string
 }) {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL_CONTACT
@@ -47,8 +48,19 @@ async function notifySlack(params: {
     return
   }
 
-  const { name, company, email, type, message } = params
+  const { name, company, email, type, position, message } = params
   const label = typeLabel[type] ?? type ?? '（未選択）'
+
+  /* 採用応募のときは希望職種フィールドを追加表示する */
+  const fields = [
+    { type: 'mrkdwn', text: `*氏名*\n${name}` },
+    { type: 'mrkdwn', text: `*会社名*\n${company || '（未入力）'}` },
+    { type: 'mrkdwn', text: `*メール*\n${email}` },
+    { type: 'mrkdwn', text: `*種別*\n${label}` },
+  ]
+  if (position) {
+    fields.push({ type: 'mrkdwn', text: `*希望職種*\n${position}` })
+  }
 
   const slackBody = {
     text: '📩 *新規お問い合わせが届きました*',
@@ -59,12 +71,7 @@ async function notifySlack(params: {
       },
       {
         type: 'section',
-        fields: [
-          { type: 'mrkdwn', text: `*氏名*\n${name}` },
-          { type: 'mrkdwn', text: `*会社名*\n${company || '（未入力）'}` },
-          { type: 'mrkdwn', text: `*メール*\n${email}` },
-          { type: 'mrkdwn', text: `*種別*\n${label}` },
-        ],
+        fields,
       },
       {
         type: 'section',
@@ -107,12 +114,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: errors.join(', ') }, { status: 400 })
     }
 
-    const { name, company = '', email, type = '', message } = body as {
-      name: string; company?: string; email: string; type?: string; message: string
+    const { name, company = '', email, type = '', position = '', message } = body as {
+      name: string; company?: string; email: string; type?: string; position?: string; message: string
     }
 
     /* Slack通知（失敗しても送信完了とする） */
-    await notifySlack({ name, company, email, type, message })
+    await notifySlack({ name, company, email, type, position, message })
 
     /* ログ（Vercel Functions Logs で確認できる） */
     console.log('[Contact] お問い合わせを受け付けました:', {
