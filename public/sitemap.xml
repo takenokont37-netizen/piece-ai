@@ -6,7 +6,7 @@
   <!-- 日本語版トップページ -->
   <url>
     <loc>https://loveandpiece.ai/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <!-- 言語の関連付け（日本語・英語は同一内容の言語違いだとGoogleに明示） -->
@@ -18,12 +18,34 @@
   <!-- 英語版トップページ -->
   <url>
     <loc>https://loveandpiece.ai/en</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ja"        href="https://loveandpiece.ai/" />
     <xhtml:link rel="alternate" hreflang="en"        href="https://loveandpiece.ai/en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://loveandpiece.ai/" />
+  </url>
+
+  <!-- 採用情報ページ（日本語） -->
+  <url>
+    <loc>https://loveandpiece.ai/recruit</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://loveandpiece.ai/recruit" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://loveandpiece.ai/en/recruit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://loveandpiece.ai/recruit" />
+  </url>
+
+  <!-- 採用情報ページ（英語） -->
+  <url>
+    <loc>https://loveandpiece.ai/en/recruit</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://loveandpiece.ai/recruit" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://loveandpiece.ai/en/recruit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://loveandpiece.ai/recruit" />
   </url>
 
 </urlset>

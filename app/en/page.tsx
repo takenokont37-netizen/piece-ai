@@ -13,13 +13,13 @@ import Faq     from '@/components/sections/Faq'
 import Contact from '@/components/sections/Contact'
 
 export const metadata: Metadata = {
-  title: 'Piece.ai | AI Agent Platform for Non-Routine Work',
-  description: 'Piece.ai is an Enterprise AI SaaS that automates non-routine workflows with AI agents. Build task-specific agents in under 3 minutes — no coding required.',
+  title: 'Piece.ai | AI for Everyone — Enterprise AI Agents',
+  description: 'Piece.ai is an Enterprise AI SaaS where every employee can run their own task-specific AI agent from day one — no prompts, no AI expertise required. Turn siloed, non-routine work into an organizational capability. Japan-born, going global.',
   alternates: { canonical: '/en' },
   openGraph: {
     type: 'website',
-    title: 'Piece.ai | AI Agent Platform for Non-Routine Work',
-    description: 'Build task-specific AI agents in under 3 minutes. No prompt engineering needed. Enterprise-ready, Japan-born AI SaaS going global.',
+    title: 'Piece.ai | AI for Everyone — Enterprise AI Agents',
+    description: 'No prompts, no AI expertise needed. Every employee can use their own task-specific AI agent. Enterprise-ready, Japan-born AI SaaS going global.',
     locale: 'en_US',
   },
 }

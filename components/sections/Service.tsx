@@ -24,7 +24,7 @@ const t = {
     cards: [
       { icon: '⚡', title: 'Everyone can use it',          desc: 'No AI knowledge or prompt engineering needed. Even employees who have never used AI can put a task-specific AI agent to work from day one.' },
       { icon: '🧠', title: 'Automate complex workflows',   desc: 'Handles the judgment-heavy, non-routine tasks that other AI tools can\'t. Turn work that was siloed to individuals into an organizational capability.' },
-      { icon: '🔗', title: 'Works with your existing tools', desc: 'Integrates with Slack, Notion, and the tools your team already uses — no need to overhaul your workflows just to adopt AI.' },
+      { icon: '🔗', title: 'Works with your existing tools', desc: 'Connects seamlessly with the internal tools and databases your team already uses — no need to overhaul your workflows just to adopt AI.' },
       { icon: '🛡️', title: 'Built for large enterprises',  desc: 'Meets the security and governance requirements of large organizations. Designed to clear IT approval and scale company-wide with confidence.' },
     ],
   },

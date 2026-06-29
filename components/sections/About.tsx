@@ -53,7 +53,7 @@ const t = {
       { label: 'Company',   value: 'Piece.ai Inc.' },
       { label: 'Business',  value: 'Vibe Working AI Agent Platform (Enterprise AI SaaS)' },
       { label: 'Founded',   value: 'June 2026 (registration in progress)' },
-      { label: 'Team Size', value: '13 members (4 founding members)' },
+      { label: 'Team Size', value: '15 members' },
       { label: 'CEO',       value: 'Former youngest Head of New Business at Itochu Corp. · Serial AI entrepreneur' },
     ],
   },
