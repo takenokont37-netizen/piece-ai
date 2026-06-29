@@ -52,6 +52,7 @@ export const metadata: Metadata = {
 
 /* =============================================
    JSON-LD 構造化データ（Google / LLM向け）
+   FAQPage は Google が廃止のため除外
    ============================================= */
 const jsonLdOrganization = {
   '@context': 'https://schema.org',
@@ -78,38 +79,6 @@ const jsonLdWebSite = {
   publisher: { '@type': 'Organization', name: 'Piece.ai株式会社' },
 }
 
-const jsonLdFaq = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Piece.aiとはどのようなサービスですか？',
-      acceptedAnswer: { '@type': 'Answer', text: 'Piece.aiは、AIの専門知識がない社員でも業務特化型のAIエージェントを即日から使いこなせるエンタープライズAI SaaSです。個人のAI活用に留まらず、ハイパフォーマーの判断・ノウハウをAIが再現し、チーム・組織全体の生産性を底上げします。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'どのような業務を自動化できますか？',
-      acceptedAnswer: { '@type': 'Answer', text: 'ルーティン作業はもちろん、状況判断が必要な非定型業務にも対応します。これまで属人化していた複雑な業務フローをAIが担うことで、特定の担当者に依存していた業務を組織全体の力に変えます。' },
-    },
-    {
-      '@type': 'Question',
-      name: '導入にエンジニアは必要ですか？',
-      acceptedAnswer: { '@type': 'Answer', text: '不要です。プログラミングの知識がなくても、専任エンジニアがいなくても、AIエージェントの設計・運用が可能です。現場の担当者が主体となって導入・活用を進められます。' },
-    },
-    {
-      '@type': 'Question',
-      name: '既存のシステムと連携できますか？',
-      acceptedAnswer: { '@type': 'Answer', text: 'はい。社内で使っているコミュニケーションツール・メール・カレンダーなどと接続可能です。各社員の閲覧・編集権限を維持したまま、AIが必要な情報を自動で参照・連携します。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'セキュリティ・コンプライアンス面は大丈夫ですか？',
-      acceptedAnswer: { '@type': 'Answer', text: '大手企業が求めるセキュリティ・ガバナンス要件に対応しています。権限管理・監査ログなど、エンタープライズ利用に必要な機能を備え、安心して業務の中枢をお任せいただけます。' },
-    },
-  ],
-}
-
 /* =============================================
    ルートレイアウト
    ============================================= */
@@ -120,7 +89,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* JSON-LD 構造化データ */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       </head>
       <body className={`${notoSansJP.className} antialiased`}>
 

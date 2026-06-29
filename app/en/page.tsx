@@ -15,7 +15,10 @@ import Contact from '@/components/sections/Contact'
 export const metadata: Metadata = {
   title: 'Piece.ai | AI for Everyone — Enterprise AI Agents',
   description: 'Piece.ai is an Enterprise AI SaaS where every employee can run their own task-specific AI agent from day one — no prompts, no AI expertise required. Turn siloed, non-routine work into an organizational capability. Japan-born, going global.',
-  alternates: { canonical: '/en' },
+  alternates: {
+    canonical: '/en',
+    languages: { 'ja': '/', 'en': '/en' },
+  },
   openGraph: {
     type: 'website',
     title: 'Piece.ai | AI for Everyone — Enterprise AI Agents',
