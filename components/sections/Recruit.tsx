@@ -15,8 +15,8 @@ const t = {
     crumb: '採用情報',
     /* ヒーロー */
     badge:   "WE'RE HIRING",
-    heroH1a: '「AI for Everyone」を、',
-    heroH1b: '世界へ。',
+    heroH1a: '「AI for Everyone」を',
+    heroH1b: '共につくる仲間へ。',
     heroSub: 'Piece.aiは、日本発・グローバル時価総額10兆円規模を目指すEnterprise AI SaaSスタートアップです。その挑戦を共にする仲間を、各領域で募集しています。',
     heroCta: '募集職種を見る',
 
@@ -66,8 +66,8 @@ const t = {
     home: 'Home',
     crumb: 'Careers',
     badge:   "WE'RE HIRING",
-    heroH1a: 'Take "AI for Everyone"',
-    heroH1b: 'to the world.',
+    heroH1a: 'Build "AI for Everyone"',
+    heroH1b: 'with us.',
     heroSub: 'Piece.ai is a Japan-born Enterprise AI SaaS startup aiming for a global market cap of ¥10 trillion. We are hiring people across every domain to take on this challenge together.',
     heroCta: 'See Open Positions',
 
