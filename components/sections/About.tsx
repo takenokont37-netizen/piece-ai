@@ -28,7 +28,7 @@ const t = {
       { label: '会社名',   value: 'Piece.ai株式会社' },
       { label: '事業内容', value: 'バイブワーキングAIエージェントプラットフォームの提供（Enterprise AI SaaS）' },
       { label: '設立',     value: '2026年6月（登記手続き中）' },
-      { label: '従業員数', value: '13名（創業メンバー4名）' },
+      { label: '従業員数', value: '15名' },
       { label: '代表',     value: '元伊藤忠商事 最年少新規事業責任者・AI連続起業家' },
     ],
   },
