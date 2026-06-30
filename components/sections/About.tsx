@@ -27,7 +27,7 @@ const t = {
     tableRows: [
       { label: '会社名',   value: 'Piece.ai株式会社' },
       { label: '事業内容', value: 'バイブワーキングAIエージェントプラットフォームの提供（Enterprise AI SaaS）' },
-      { label: '設立',     value: '2026年6月8日（登記手続き中）' },
+      { label: '設立',     value: '2026年6月8日' },
       { label: '従業員数', value: '15名' },
       { label: '代表',     value: '元伊藤忠商事 最年少新規事業責任者・AI連続起業家' },
     ],
@@ -52,7 +52,7 @@ const t = {
     tableRows: [
       { label: 'Company',   value: 'Piece.ai Inc.' },
       { label: 'Business',  value: 'Vibe Working AI Agent Platform (Enterprise AI SaaS)' },
-      { label: 'Founded',   value: 'June 8, 2026 (registration in progress)' },
+      { label: 'Founded',   value: 'June 8, 2026' },
       { label: 'Team Size', value: '15 members' },
       { label: 'CEO',       value: 'Former youngest Head of New Business at Itochu Corp. · Serial AI entrepreneur' },
     ],
@@ -98,9 +98,11 @@ export default function About({ lang = 'ja' }: { lang?: Lang }) {
           {/* 代表プロフィール */}
           <FadeIn>
             <div className="flex flex-col md:flex-row items-center md:items-start gap-10 p-12 bg-white border border-gray-200 rounded-3xl">
-              <div className="shrink-0 w-24 h-24 rounded-full bg-gradient-to-br from-[#5b6ef5] to-[#00c9a7] flex items-center justify-center text-white font-bold text-xl font-[var(--font-en)]">
-                YA
-              </div>
+              <img
+                src="/images/aoki.jpg"
+                alt={tx.ceoName}
+                className="shrink-0 w-24 h-24 rounded-full object-cover object-top"
+              />
               <div className="text-center md:text-left">
                 <p className="text-xs font-semibold tracking-[0.1em] text-[#5b6ef5] mb-1">{tx.ceoRole}</p>
                 <p className="text-lg font-bold text-[#1a1a2e] mb-3">{tx.ceoName}</p>
