@@ -14,6 +14,7 @@ const t = {
     members: [
       {
         initials: 'YA',
+        photo: '/images/aoki.jpg',
         name: 'Yusuke Aoki',
         role: '代表取締役 CEO',
         bio:  '慶應義塾大学大学院理工学研究科（物性×AI）修了後、伊藤忠商事に入社。最年少で新規事業責任者を務めた後、エンタメ×生成AI領域でスタートアップを起業し資金調達を実施。デカコーン級AIスタートアップのNo.2経営者として、グループ2万人規模の大手企業へのAI導入を牽引。Piece.aiを創業し、全人類の幸福最大化に挑む。',
@@ -34,6 +35,7 @@ const t = {
     members: [
       {
         initials: 'YA',
+        photo: '/images/aoki.jpg',
         name: 'Yusuke Aoki',
         role: 'CEO & Co-Founder',
         bio:  'After his M.S. at Keio University (condensed matter physics × AI), he joined Itochu Corporation as its youngest-ever Head of New Business Development. He founded a startup in entertainment × generative AI and successfully raised funding. As #2 at a decacorn-level AI startup, he led AI adoption at enterprise groups of 20,000+ employees. He founded Piece.ai to maximize the happiness of all humanity.',

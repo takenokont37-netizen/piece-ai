@@ -60,7 +60,7 @@ const jsonLdOrganization = {
   name: 'Piece.ai株式会社',
   url: 'https://loveandpiece.ai',
   description: 'プロンプト不要で誰もが使える業務特化型AIエージェントを提供するEnterprise AI SaaS。日本発・グローバルを目指すスタートアップ。',
-  foundingDate: '2026-06',
+  foundingDate: '2026-06-08',
   numberOfEmployees: { '@type': 'QuantitativeValue', value: 15 },
   contactPoint: {
     '@type': 'ContactPoint',
